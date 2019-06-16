@@ -29,26 +29,26 @@ LoseMenuState::~LoseMenuState() {
 }
 
 void LoseMenuState::updateEvents() {
+	sf::Vector2<int> mousePos = sf::Mouse::getPosition(window);
+	this->mainMenuButton->update(sf::Vector2<float>(mousePos));
+	this->quitGameButton->update(sf::Vector2<float>(mousePos));
+
 	while (window.pollEvent(sfEvent)) {
 		switch (sfEvent.type) {
-		case sf::Event::Closed:
-			machine.quit();
-			break;
+			case sf::Event::Closed:
+				machine.quit();
+				break;
 
-		case sf::Event::MouseButtonPressed:
-			if (this->quitGameButton->isPressed() == true) { machine.quit(); }
-			if (this->mainMenuButton->isPressed() == true) { machine.run(machine.buildState<MainMenuState>(machine, window, true)); }
-			break;
+			case sf::Event::MouseButtonPressed:
+				if (this->quitGameButton->isPressed() == true) { machine.quit(); }
+				if (this->mainMenuButton->isPressed() == true) { machine.run(machine.buildState<MainMenuState>(machine, window, true)); }
+				break;
 		}
 	}
 }
 
 void LoseMenuState::update() {
 	fpsCounter.update();
-
-	sf::Vector2<int> mousePos = sf::Mouse::getPosition(window);
-	this->mainMenuButton->update(sf::Vector2<float>(mousePos));
-	this->quitGameButton->update(sf::Vector2<float>(mousePos));
 }
 
 void LoseMenuState::render() {

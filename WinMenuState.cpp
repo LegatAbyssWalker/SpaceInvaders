@@ -29,6 +29,10 @@ WinMenuState::~WinMenuState() {
 }
 
 void WinMenuState::updateEvents() {
+	sf::Vector2<int> mousePos = sf::Mouse::getPosition(window);
+	this->mainMenuButton->update(sf::Vector2<float>(mousePos));
+	this->quitGameButton->update(sf::Vector2<float>(mousePos));
+
 	while (window.pollEvent(sfEvent)) {
 		switch (sfEvent.type) {
 			case sf::Event::Closed:
@@ -45,10 +49,6 @@ void WinMenuState::updateEvents() {
 
 void WinMenuState::update() {
 	fpsCounter.update();
-
-	sf::Vector2<int> mousePos = sf::Mouse::getPosition(window);
-	this->mainMenuButton->update(sf::Vector2<float>(mousePos));
-	this->quitGameButton->update(sf::Vector2<float>(mousePos));
 }
 
 void WinMenuState::render() {
