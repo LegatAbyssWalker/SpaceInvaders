@@ -19,7 +19,7 @@ void StateMachine::nextState() {
 	if (stateResume) {
 		//Cleanup current state
 		if (!states.empty()) { states.pop(); }
-		
+
 		stateResume = false;
 	}
 

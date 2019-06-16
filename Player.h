@@ -9,7 +9,7 @@
 class Player {
 	public:
 		Player();
-
+		
 		void renderTo(sf::RenderWindow& window);
 		void setPlayerPos(sf::Vector2<float> newPos);
 		void moveTo(sf::Vector2<float> distance);

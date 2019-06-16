@@ -31,7 +31,7 @@ int UFO::getX() {
 }
 
 int UFO::getY() {
-	return ufo.getPosition().y;
+	return ufo.getPosition().y; 
 }
 
 sf::FloatRect UFO::getGlobalBounds() {

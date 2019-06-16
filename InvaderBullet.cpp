@@ -15,7 +15,7 @@ InvaderBullet::InvaderBullet() {
 	bullet.setScale(1 * 1.5, 1 * 1.5);
 }
 
-void InvaderBullet::renderTo(sf::RenderWindow& window) {
+void InvaderBullet::renderTo(sf::RenderWindow & window) {
 	window.draw(bullet);
 }
 
@@ -27,19 +27,19 @@ void InvaderBullet::moveTo(sf::Vector2<float> distance) {
 	bullet.move(distance);
 }
 
-void InvaderBullet::getX() {
-	bullet.getPosition().x;
+int InvaderBullet::getX() {
+	return bullet.getPosition().x;
 }
 
-void InvaderBullet::getY() {
-	bullet.getPosition().y;
+int InvaderBullet::getY() {
+	return bullet.getPosition().y;
 }
 
 sf::FloatRect InvaderBullet::getGlobalBounds() {
 	return bullet.getGlobalBounds();
 }
 
-bool InvaderBullet::collisionWithPlayer(Player* player) {
+bool InvaderBullet::collisionWithPlayer(Player * player) {
 	if (getGlobalBounds().intersects(player->getGlobalBounds())) {
 		return true;
 	}

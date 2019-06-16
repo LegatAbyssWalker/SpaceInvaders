@@ -2,26 +2,26 @@
 
 #include "State.h"
 #include "StateMachine.h"
+class StateMachine;
 
 #include "PlayingState.h"
 #include "MoreInfo.h"
 
 #include <iostream>
 
-class StateMachine;
 
 MainMenuState::MainMenuState(StateMachine& machine, sf::RenderWindow& window, bool replace)
 	: State{ machine, window, replace } {
-	
-		//Buttons
-		this->quitGameButton  = new Button(window.getSize().x / 2, window.getSize().y / 2 + 40, 150, 50, 20, arialFont, "Quit Game",
-			sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(255, 255, 255));
 
-		this->startGameButton = new Button(window.getSize().x / 2, window.getSize().y / 2 - 40, 150, 50, 20, arialFont, "Start Game",
-			sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(255, 255, 255));
+	//Buttons
+	this->quitGameButton = new Button(window.getSize().x / 2, window.getSize().y / 2 + 40, 150, 50, 20, arialFont, "Quit Game",
+		sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(255, 255, 255));
 
-		//Text
-		this->titleText = new Text(window.getSize().x / 2, window.getSize().y / 4, 40, arialFont, "Space Invaders!", sf::Color(0, 128, 0));
+	this->startGameButton = new Button(window.getSize().x / 2, window.getSize().y / 2 - 40, 150, 50, 20, arialFont, "Start Game",
+		sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(255, 255, 255));
+
+	//Text
+	this->titleText = new Text(window.getSize().x / 2, window.getSize().y / 4, 40, arialFont, "Space Invaders!", sf::Color(0, 139, 139));
 
 }
 
@@ -41,24 +41,21 @@ void MainMenuState::updateEvents() {
 	//Events while loop
 	while (window.pollEvent(sfEvent)) {
 		switch (sfEvent.type) {
-			case sf::Event::Closed:
-				window.close();
-				break;
+		case sf::Event::Closed:
+			window.close();
+			break;
 
-			case sf::Event::MouseButtonPressed:
-				if (this->quitGameButton->isPressed() == true) { machine.quit(); }
-				if (this->startGameButton->isPressed() == true) { machine.run(machine.buildState<PlayingState>(machine, window, true)); }
+		case sf::Event::MouseButtonPressed:
+			if (this->quitGameButton->isPressed() == true) { machine.quit(); }
+			if (this->startGameButton->isPressed() == true) { machine.run(machine.buildState<PlayingState>(machine, window, true)); }
 
-				break;
+			break;
 		}
 	}
 }
 
 void MainMenuState::update() {
-	fpsCounter.update();
-
-
-	
+	fpsCounter.updateCounter();
 }
 
 void MainMenuState::render() {

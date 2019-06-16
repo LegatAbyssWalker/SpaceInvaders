@@ -1,7 +1,8 @@
 #include "Text.h"
 
 
-Text::Text(float posX, float posY, int characterSize, std::string fontFile, std::string text, sf::Color textColor) {
+
+Text::Text(float posX, float posY, unsigned int characterSize, std::string fontFile, std::string text, sf::Color textColor) {
 	textFont.loadFromFile(fontFile);
 
 	this->text.setFont(textFont);
@@ -12,6 +13,6 @@ Text::Text(float posX, float posY, int characterSize, std::string fontFile, std:
 	this->text.setFillColor(textColor);
 }
 
-void Text::renderTo(sf::RenderWindow & window) {
+void Text::renderTo(sf::RenderWindow& window) {
 	window.draw(text);
 }

@@ -8,12 +8,8 @@
 #include "FPSCounter.h"
 
 #include "State.h"
-#include "MainMenuState.h"
-
-
+#include "StateMachine.h"
 class StateMachine;
-
-
 
 class WinMenuState : public State {
 	public:
@@ -27,8 +23,8 @@ class WinMenuState : public State {
 	private:
 		//Class objects
 		Text* winText;
-		Button* mainMenuButton;
 		Button* quitGameButton;
+		Button* mainMenuButton;
 		FPSCounter fpsCounter;
 
 		//Variables

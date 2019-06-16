@@ -9,9 +9,8 @@
 
 class Text {
 	public:
-		//Necessary information for text creation
-		Text(float posX, float posY, int characterSize, std::string fontFile, std::string text, sf::Color textColor);
-
+		Text(float posX, float posY, unsigned int characterSize, std::string fontFile, std::string text, sf::Color textColor);
+		
 		void renderTo(sf::RenderWindow& window);
 
 	private:

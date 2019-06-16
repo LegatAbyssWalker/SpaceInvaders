@@ -1,25 +1,24 @@
 #include "WinMenuState.h"
 
+#include "MoreInfo.h"
+#include "MainMenuState.h"
+
 #include "State.h"
 #include "StateMachine.h"
-
-#include "MoreInfo.h"
-
 class StateMachine;
 
 WinMenuState::WinMenuState(StateMachine& machine, sf::RenderWindow& window, bool replace)
 	: State{ machine, window, replace } {
 
 		//Text
-		this->winText = new Text(screenWidth / 2, screenHeight / 3, 40, arialFont, "YOU WIN!", sf::Color(255, 255, 0));
+		this->winText = new Text(screenWidth / 2, screenHeight / 3, 40, arialFont, "YOU WIN!", sf::Color(0, 139, 139));
 
-		
-		//Button
+		//Buttons
 		this->mainMenuButton = new Button(screenWidth / 2, screenHeight / 2, 150, 50, 20, arialFont, "Main Menu",
-			sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(255, 255, 255));
+			sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(0, 0, 0));
 
 		this->quitGameButton = new Button(screenWidth / 2, screenHeight / 2 + 100, 150, 50, 20, arialFont, "Quit Game",
-			sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(255, 255, 255));
+			sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(0, 0, 0));
 }
 
 WinMenuState::~WinMenuState() {
@@ -38,17 +37,17 @@ void WinMenuState::updateEvents() {
 			case sf::Event::Closed:
 				machine.quit();
 				break;
-
+				
 			case sf::Event::MouseButtonPressed:
-				if (this->quitGameButton->isPressed() == true) { machine.quit(); }
 				if (this->mainMenuButton->isPressed() == true) { machine.run(machine.buildState<MainMenuState>(machine, window, true)); }
-				break;
+				if (this->quitGameButton->isPressed() == true) { machine.quit(); }
+
 		}
 	}
 }
 
 void WinMenuState::update() {
-	fpsCounter.update();
+	fpsCounter.updateCounter();
 }
 
 void WinMenuState::render() {
@@ -56,10 +55,9 @@ void WinMenuState::render() {
 
 	//Render items
 	fpsCounter.renderTo(window);
-
-	this->winText->renderTo(window);
-	this->mainMenuButton->renderTo(window);
 	this->quitGameButton->renderTo(window);
+	this->mainMenuButton->renderTo(window);
+	this->winText->renderTo(window);
 
 
 	window.display();

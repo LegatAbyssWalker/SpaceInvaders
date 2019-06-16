@@ -1,6 +1,6 @@
 #include "Shield.h"
 
-#include "MoreInfo.h"
+
 
 Shield::Shield() {
 	texture.loadFromFile("res/images/SIShield.png");
@@ -10,7 +10,7 @@ Shield::Shield() {
 
 	shield.setTexture(texture);
 	shield.setTextureRect(sf::IntRect(shieldChar.x * 0, shieldChar.y * 0, shieldChar.x, shieldChar.y));
-	shield.setOrigin(shieldChar.x / 2, shieldChar.y / 2);
+	shield.setOrigin(shieldChar.x / 2, shieldChar.y);
 }
 
 void Shield::renderTo(sf::RenderWindow& window) {
@@ -40,3 +40,4 @@ void Shield::shieldProtection(int num) {
 int Shield::shieldProtectionNum() {
 	return shieldProtectionAccount;
 }
+

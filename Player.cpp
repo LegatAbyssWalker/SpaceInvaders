@@ -2,15 +2,16 @@
 
 #include "MoreInfo.h"
 
+
 Player::Player() {
 	texture.loadFromFile("res/images/SIPlayer.png");
-	sf::Vector2<unsigned> individualCharacter = texture.getSize();	
-	individualCharacter.x /= 1;
-	individualCharacter.y /= 1;
+	sf::Vector2<unsigned> playerChar = texture.getSize();
+	playerChar.x /= 1;
+	playerChar.y /= 1;
 
 	player.setTexture(texture);
-	player.setTextureRect(sf::IntRect(individualCharacter.x * 0, individualCharacter.y * 0, individualCharacter.x, individualCharacter.y));
-	player.setOrigin(individualCharacter.x / 2, individualCharacter.y / 2);
+	player.setTextureRect(sf::IntRect(playerChar.x * 0, playerChar.y * 0, playerChar.x, playerChar.y));
+	player.setOrigin(playerChar.x / 2, playerChar.y / 2);
 }
 
 void Player::renderTo(sf::RenderWindow& window) {
@@ -34,8 +35,8 @@ int Player::getY() {
 }
 
 void Player::updateBorderBounds() {
-	if (getX() <= screenWidth * 0) { setPlayerPos(sf::Vector2<float>(getX() + playerBorderSpeed, getY())); } //Left
-	if (getX() >= screenWidth)	   { setPlayerPos(sf::Vector2<float>(getX() - playerBorderSpeed, getY())); } //Right
+	if (getX() <= screenWidth * 0) { setPlayerPos(sf::Vector2<float>(getX() + playerBorderSpeed, getY())); } //Left Side
+	if (getX() >= screenWidth)	   { setPlayerPos(sf::Vector2<float>(getX() - playerBorderSpeed, getY())); } //Right Side
 }
 
 sf::FloatRect Player::getGlobalBounds() {

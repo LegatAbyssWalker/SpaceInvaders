@@ -14,6 +14,7 @@ class Shield {
 		int getX();
 		int getY();
 		sf::FloatRect getGlobalBounds();
+
 		void shieldProtection(int num);
 		int shieldProtectionNum();
 

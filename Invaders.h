@@ -11,16 +11,15 @@
 class Invaders {
 	public:
 		Invaders();
-
+		
 		void renderTo(sf::RenderWindow& window);
 		void setInvaderPos(sf::Vector2<float> newPos);
+		void moveTo(sf::Vector2<float> distance);
 		int getX();
 		int getY();
-		void moveTo(sf::Vector2<float>(distance));
 		sf::FloatRect getGlobalBounds();
 
 	private:
-		//SFML
 		sf::Texture texture;
 		sf::Sprite invader;
 };

@@ -11,11 +11,11 @@ PlayerBullet::PlayerBullet() {
 	bullet.setTexture(texture);
 	bullet.setTextureRect(sf::IntRect(individualCharacter.x * 0, individualCharacter.y * 0, individualCharacter.x, individualCharacter.y));
 	bullet.setOrigin(individualCharacter.x / 2, individualCharacter.y / 2);
-	bullet.setScale(1 * 1.5, 1 * 1.5); 
+	bullet.setScale(1 * 1.5, 1 * 1.5);
 }
 
 
-void PlayerBullet::renderTo(sf::RenderWindow& window) {
+void PlayerBullet::renderTo(sf::RenderWindow & window) {
 	window.draw(bullet);
 }
 
@@ -27,12 +27,12 @@ void PlayerBullet::moveTo(sf::Vector2<float> distance) {
 	bullet.move(distance);
 }
 
-void PlayerBullet::getX() {
-	bullet.getPosition().x;
+int PlayerBullet::getX() {
+	return bullet.getPosition().x;
 }
 
-void PlayerBullet::getY() {
-	bullet.getPosition().y;
+int PlayerBullet::getY() {
+	return bullet.getPosition().y;
 }
 
 sf::FloatRect PlayerBullet::getGlobalBounds() {

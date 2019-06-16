@@ -3,10 +3,9 @@
 
 #include "SFML/Graphics.hpp"
 
-class StateMachine;
-
 #include <memory>
 
+class StateMachine;
 
 class State {
 	public:
@@ -23,7 +22,6 @@ class State {
 		std::unique_ptr<State> nextState();
 
 		bool isReplacing();
-
 
 	protected:
 		StateMachine& machine;

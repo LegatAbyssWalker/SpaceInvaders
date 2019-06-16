@@ -1,4 +1,3 @@
-
 #ifndef FPSCOUNTER_H
 #define FPSCOUNTER_H
 
@@ -13,21 +12,20 @@
 class FPSCounter {
 	public:
 		FPSCounter();
-		~FPSCounter();
-
-
+		
 		void renderTo(sf::RenderWindow& window);
-		void update();
-
+		void updateCounter();
 
 	private:
+		std::string arialFont = "res/fonts/arial.ttf";
+
 		sf::Font gameFont;
 		sf::Text framerateCounter;
 
 		std::ostringstream ssFPS;
 
 		sf::Clock fpsClock;
-		sf::Time fpsTime;
+		sf::Time fpsTimer;
 };
 
 #endif

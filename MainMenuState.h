@@ -9,12 +9,11 @@
 #include "SFML/System/Vector2.hpp"
 
 #include "State.h"
+class StateMachine;
+
 #include "FPSCounter.h"
 #include "Button.h"
 #include "Text.h"
-
-
-class StateMachine;
 
 
 
@@ -34,7 +33,7 @@ class MainMenuState : public State {
 		Button* quitGameButton;
 		Text* titleText;
 
-		
+
 		//Booleans and Variables
 		std::string arialFont = "res/fonts/arial.ttf";
 

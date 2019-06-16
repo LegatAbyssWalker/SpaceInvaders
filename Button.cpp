@@ -1,5 +1,7 @@
 #include "Button.h"
 
+
+
 Button::Button(float posX, float posY, float width, float height, unsigned int characterSize, std::string fontFile, std::string text, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor, sf::Color textColor) {
 	this->buttonState = BTN_IDLE;
 
@@ -22,19 +24,12 @@ Button::Button(float posX, float posY, float width, float height, unsigned int c
 	this->shape.setFillColor(this->idleColor);
 }
 
-Button::~Button() {
-	//
-}
-
-
 const bool Button::isPressed() const {
 	if (this->buttonState == BTN_ACTIVE) {
 		return true;
 	}
-
 	return false;
 }
-
 
 void Button::update(const sf::Vector2<float> mousePos) {
 	//Idle
@@ -51,26 +46,23 @@ void Button::update(const sf::Vector2<float> mousePos) {
 	}
 
 	switch (this->buttonState) {
-	case BTN_IDLE:
-		this->shape.setFillColor(this->idleColor);
-		break;
+		case BTN_IDLE:
+			this->shape.setFillColor(this->idleColor);
+			break;
+		case BTN_HOVER:
+			this->shape.setFillColor(this->hoverColor);
+			break;
+		case BTN_ACTIVE:
+			this->shape.setFillColor(this->activeColor);
+			break;
 
-	case BTN_HOVER:
-		this->shape.setFillColor(this->hoverColor);
-		break;
-
-	case BTN_ACTIVE:
-		this->shape.setFillColor(this->activeColor);
-		break;
-
-	default:
-		this->shape.setFillColor(sf::Color::Red);
-		break;
+		default:
+			this->shape.setFillColor(sf::Color::Red);
+			break;
 	}
 }
 
-void Button::renderTo(sf::RenderWindow & window) {
+void Button::renderTo(sf::RenderWindow& window) {
 	window.draw(this->shape);
 	window.draw(this->text);
-	window.draw(this->image);
 }

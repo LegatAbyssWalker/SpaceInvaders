@@ -13,12 +13,12 @@
 class PlayerBullet {
 	public:
 		PlayerBullet();
-
+		
 		void renderTo(sf::RenderWindow& window);
 		void setBulletPos(sf::Vector2<float> newPos);
-		void moveTo(sf::Vector2<float> distance);
-		void getX();
-		void getY();
+		void moveTo(sf::Vector2<float> distance);  
+		int getX();
+		int getY();
 		sf::FloatRect getGlobalBounds();
 
 		//Collisions

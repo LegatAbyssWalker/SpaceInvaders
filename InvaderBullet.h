@@ -12,22 +12,22 @@
 class InvaderBullet {
 	public:
 		InvaderBullet();
-
-		void renderTo(sf::RenderWindow& window); 
+		
+		void renderTo(sf::RenderWindow& window);
 		void setBulletPos(sf::Vector2<float> newPos);
 		void moveTo(sf::Vector2<float> distance);
-		void getX();
-		void getY();
+		int getX();
+		int getY();
 		sf::FloatRect getGlobalBounds();
+
+		//Collision
 		bool collisionWithPlayer(Player* player);
-		bool collisionWithShield(Shield* shield);
+		bool collisionWithShield(Shield* shield); 
+
 
 	private:
-		//SFML
 		sf::Texture texture;
 		sf::Sprite bullet;
-		sf::Clock bulletClock;
-		float bulletTimer;
 };
 
 #endif

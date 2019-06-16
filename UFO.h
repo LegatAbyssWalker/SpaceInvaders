@@ -15,7 +15,7 @@ class UFO {
 		int getY();
 		sf::FloatRect getGlobalBounds();
 
- 	private:
+	private:
 		sf::Texture texture;
 		sf::Sprite ufo;
 };
