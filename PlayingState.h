@@ -12,6 +12,14 @@
 #include "Player.h"
 #include "Invaders.h"
 #include "Random.h"
+#include "PlaySound.h"
+#include "PlayerBullet.h"
+#include "InvaderBullet.h"
+#include "Shield.h"
+#include "UFO.h"
+
+#include "WinMenuState.h"
+#include "LoseMenuState.h"
 
 #include "State.h"
 #include "MainMenuState.h"
@@ -34,20 +42,34 @@ class PlayingState : public State {
 	private:
 		//Vectors
 		std::vector<Invaders*> invaderVector;
-
+		std::vector<Player*> playerVector;
+		std::vector<Shield*> shieldVector;
+		std::vector<UFO*> ufoVector;
 
 		//Class objects
+		PlaySound playSound;
 		Random<> random;
-
 		FPSCounter fpsCounter;
 		Player player;
-		Invaders invaders[5];
+		Invaders invaders[15];
+		PlayerBullet pBullet, p2Bullet;
+		InvaderBullet iBullet;
+		Shield shield[3];
+		UFO ufo;
 
-
+	
 		//Variables and Booleans
-		const int playerSpeed = 5;
-		const int bulletSpeed = 7;
-		const float invaderSpeed = 0.3;
+		const int playerSpeed = 2;
+		const float bulletSpeed = 9;
+		const float invaderSpeed = 2;
+		const float ufoSpeed = 3;
+		unsigned int pBulletCount = 0;
+
+		int shooter;
+		int playerLives = 3;
+		int playerScore = 0;
+		int shieldProtection = 5;
+		int enemyCount = 15;
 
 		bool isMovingLeft   = false;
 		bool isMovingRight  = false;
@@ -59,8 +81,8 @@ class PlayingState : public State {
 
 		//SFML 
 		sf::Event sfEvent;
-		sf::Clock invaderClock;
-		float invaderTimer;
+		sf::Clock invaderClock, invaderDownClock, pBulletClock, iBulletClock, iBulletClock2, ufoClock, deathClock;
+		float invaderTimer, invaderDownTimer, pBulletTimer, iBulletTimer, iBulletTimer2, ufoTimer, deathTimer;
 };
 
 #endif

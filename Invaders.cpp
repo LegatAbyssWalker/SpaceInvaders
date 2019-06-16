@@ -1,16 +1,18 @@
 #include "Invaders.h"
 
+#include "MoreInfo.h"
 
 
 Invaders::Invaders() {
-	texture.loadFromFile("res/images/spaceInvadersSpriteSheet.png");
+	texture.loadFromFile("res/images/SIInvader.png");
 	sf::Vector2<unsigned> individualCharacter = texture.getSize();
-	individualCharacter.x /= 4;
-	individualCharacter.y /= 6;
+	individualCharacter.x /= 1;
+	individualCharacter.y /= 1;
 
 	invader.setTexture(texture);
 	invader.setTextureRect(sf::IntRect(individualCharacter.x * 0, individualCharacter.y * 0, individualCharacter.x, individualCharacter.y));
 	invader.setOrigin(individualCharacter.x / 2, individualCharacter.y / 2);
+	invader.scale(1 * 1.5, 1 * 1.5);
 }
 
 

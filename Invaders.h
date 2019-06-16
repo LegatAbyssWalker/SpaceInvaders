@@ -19,9 +19,8 @@ class Invaders {
 		void moveTo(sf::Vector2<float>(distance));
 		sf::FloatRect getGlobalBounds();
 
-
-
 	private:
+		//SFML
 		sf::Texture texture;
 		sf::Sprite invader;
 };

@@ -3,13 +3,13 @@
 #include "MoreInfo.h"
 
 Player::Player() {
-	texture.loadFromFile("res/images/spaceInvadersSpriteSheet.png");
+	texture.loadFromFile("res/images/SIPlayer.png");
 	sf::Vector2<unsigned> individualCharacter = texture.getSize();	
-	individualCharacter.x /= 7;
-	individualCharacter.y /= 6;
+	individualCharacter.x /= 1;
+	individualCharacter.y /= 1;
 
 	player.setTexture(texture);
-	player.setTextureRect(sf::IntRect(individualCharacter.x * 1.8, individualCharacter.y * 5, individualCharacter.x, individualCharacter.y));
+	player.setTextureRect(sf::IntRect(individualCharacter.x * 0, individualCharacter.y * 0, individualCharacter.x, individualCharacter.y));
 	player.setOrigin(individualCharacter.x / 2, individualCharacter.y / 2);
 }
 

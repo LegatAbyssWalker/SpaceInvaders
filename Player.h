@@ -17,9 +17,6 @@ class Player {
 		int getY();
 		void updateBorderBounds();
 		sf::FloatRect getGlobalBounds();
-		//bool collisionWithEnemyBullet(EnemyBullet* enemyBullet);
-
-
 
 	private:
 		sf::Texture texture;

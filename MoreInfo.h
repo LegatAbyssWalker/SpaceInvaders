@@ -29,6 +29,6 @@ const int playerBorderSpeed = 30;
 
 
 /*--------------BUG FIXES--------------*/
-//Invader movement
+//Invader bullets
 
 #endif
