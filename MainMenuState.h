@@ -16,7 +16,6 @@ class StateMachine;
 #include "Text.h"
 
 
-
 class MainMenuState : public State {
 	public:
 		MainMenuState(StateMachine& machine, sf::RenderWindow& window, bool replace = true);

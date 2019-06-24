@@ -86,7 +86,6 @@ void PlayingState::handleKeyboardInputs(sf::Keyboard::Key key, bool isPressed) {
 	if (key == sf::Keyboard::A)		{ isMovingLeft = isPressed; }
 	if (key == sf::Keyboard::D)		{ isMovingRight = isPressed; }
 	if (key == sf::Keyboard::Space) { isBulletFiring = isPressed; }
-
 }
 
 void PlayingState::updateEvents() {
@@ -124,10 +123,10 @@ void PlayingState::update() {
 	if (isBulletFiring) {
 		if (pBulletCount <= 1) {
 			switch (pBulletCount) {
-			case 0:
-				pBullet.setBulletPos(sf::Vector2<float>(player.getX(), player.getY()));
-				playSound.setSound("res/sounds/shoot.wav", 35, false);
-				break;
+				case 0:
+					pBullet.setBulletPos(sf::Vector2<float>(player.getX(), player.getY()));
+					playSound.setSound("res/sounds/shoot.wav", 35, false);
+					break;
 			}
 
 			pBulletCount++;
@@ -137,7 +136,7 @@ void PlayingState::update() {
 		if (pBulletCount > 1) {
 			isBulletFiring = false;
 			pBulletTimer = pBulletClock.getElapsedTime().asSeconds();
-			if (pBulletTimer >= 1.500) {
+			if (pBulletTimer >= 1.000) {
 				pBulletCount = 0;
 				pBulletClock.restart();
 			}
@@ -175,8 +174,6 @@ void PlayingState::update() {
 			invaderVector[x]->setInvaderPos(sf::Vector2<float>(100000, 100000));
 			pBullet.setBulletPos(sf::Vector2<float>(10000, 10000));
 			playSound.setSound("res/sounds/invaderKilled.wav", 35, false);
-			pBulletCount = 0;
-			pBulletClock.restart();
 			playerScore++;
 		}
 	}
@@ -213,6 +210,7 @@ void PlayingState::update() {
 	for (int x = 0; x < playerVector.size(); x++) {
 		if (iBullet.collisionWithPlayer(playerVector[x])) {
 			iBullet.setBulletPos(sf::Vector2<float>(100000, 100000));
+			playSound.setSound("res/sounds/explosion.wav", 20, false);
 			playerLives--;
 		}
 	}
@@ -224,14 +222,12 @@ void PlayingState::update() {
 		if (pBullet.collisionWithShield(shieldVector[x])) {
 			shieldVector[x]->shieldProtection(1);
 			pBullet.setBulletPos(sf::Vector2 <float>(10000, 10000));
-			pBulletCount = 0;
-			pBulletClock.restart().asSeconds();
 
 			//Checking for shield damage
 			if (shieldVector[x]->shieldProtectionNum() <= 0) { shieldVector[x]->setShieldPos(sf::Vector2<float>(100000, 10000)); }
 		}
 
-		//Collision with invader bullets
+		//Collision with invader bullet
 		if (iBullet.collisionWithShield(shieldVector[x])) {
 			shieldVector[x]->shieldProtection(1);
 			iBullet.setBulletPos(sf::Vector2 <float>(10000, 10000));
@@ -246,18 +242,28 @@ void PlayingState::update() {
 	sf::Vector2<float> ufoMovement(0.f, 0.f);
 
 	ufoTimer = ufoClock.getElapsedTime().asSeconds();
-	if (ufoTimer >= 15.000 && ufoTimer <= 19.000) { ufoMovement.x -= ufoSpeed; playSound.setSound("res/sounds/ufoSound.wav", 20, false); }
-	if (ufoTimer >= 30.000 && ufoTimer <= 34.000) { ufoMovement.x += ufoSpeed; playSound.setSound("res/sounds/ufoSound.wav", 20, false); }
+	//Moving Left
+	if (ufoTimer >= 15.000 && ufoTimer <= 19.000) { ufoMovement.x -= ufoSpeed;
+		if (ufo.isOnScreen(window) == true) { playSound.setSound("res/sounds/ufoSound.wav", 20, false); } 
+		else {playSound.stopSound(); }
+	}
+
+	//Moving Right
+	if (ufoTimer >= 30.000 && ufoTimer <= 34.000) {
+		ufoMovement.x += ufoSpeed;
+		if (ufo.isOnScreen(window) == true) { playSound.setSound("res/sounds/ufoSound.wav", 20, false); }
+		else { playSound.stopSound(); }
+	}
+
 	if (ufoTimer >= 35.000) { ufoClock.restart().asSeconds(); }
 	ufo.moveTo(ufoMovement);
 
 	//UFO collision
 	for (int x = 0; x < ufoVector.size(); x++) {
 		if (pBullet.collisionWithUFO(ufoVector[x])) {
-			ufoVector[x]->setUFOPos(sf::Vector2<float>(100000, 100000));
+			ufoVector[x]->setUFOPos(sf::Vector2<float>(screenWidth + 40, screenHeight * 0 + 100));
+			ufoClock.restart().asSeconds();
 			pBullet.setBulletPos(sf::Vector2<float>(1000000, 10000));
-			pBulletCount = 0;
-			pBulletClock.restart().asSeconds();
 		}
 	}
 
@@ -266,11 +272,7 @@ void PlayingState::update() {
 	/*-------------------------------------------------------------------------------------------------------------------*/
 	//Win or Lose
 	if (playerScore >= enemyCount) { machine.run(machine.buildState<WinMenuState>(machine, window, true)); playSound.stopMusic(); }
-	if (playerLives <= 0) { 
-		deathTimer = deathClock.getElapsedTime().asSeconds();
-		playSound.setSound("res/sounds/explosion.wav", 35, false);
-		if(deathTimer >= 2.000) { machine.run(machine.buildState<LoseMenuState>(machine, window, true)); playSound.stopMusic(); }
-	}
+	if (playerLives <= 0) { machine.run(machine.buildState<LoseMenuState>(machine, window, true)); playSound.stopMusic(); }
 
 }
 

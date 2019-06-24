@@ -14,6 +14,7 @@ class UFO {
 		int getX();
 		int getY();
 		sf::FloatRect getGlobalBounds();
+		bool isOnScreen(sf::RenderWindow& window);
 
 	private:
 		sf::Texture texture;

@@ -10,8 +10,8 @@
 class Text {
 	public:
 		Text(float posX, float posY, unsigned int characterSize, std::string fontFile, std::string text, sf::Color textColor);
-		
-		void renderTo(sf::RenderWindow& window);
+
+		void renderTo(sf::RenderWindow& window);  
 
 	private:
 		sf::Font textFont;

@@ -60,7 +60,7 @@ class PlayingState : public State {
 		unsigned int pBulletCount = 0;
 
 		int shooter			 = 0;
-		int playerLives		 = 3;
+		int playerLives		 = 4;
 		int playerScore		 = 0;
 		int shieldProtection = 5;
 		int enemyCount		 = 15;
@@ -75,8 +75,8 @@ class PlayingState : public State {
 
 		//SFML
 		sf::Event sfEvent;
-		sf::Clock invaderClock, invaderDownClock, pBulletClock, iBulletClock, iBulletClock2, ufoClock, deathClock;
-		float invaderTimer, invaderDownTimer, pBulletTimer, iBulletTimer, iBulletTimer2, ufoTimer, deathTimer;
+		sf::Clock invaderClock, invaderDownClock, pBulletClock, iBulletClock, iBulletClock2, ufoClock, ufoSoundClock, deathClock;
+		float invaderTimer, invaderDownTimer, pBulletTimer, iBulletTimer, iBulletTimer2, ufoTimer, ufoSoundTimer, deathTimer;
 };
 
 #endif

@@ -37,3 +37,10 @@ int UFO::getY() {
 sf::FloatRect UFO::getGlobalBounds() {
 	return ufo.getGlobalBounds();
 }
+
+bool UFO::isOnScreen(sf::RenderWindow& window) {
+	if (getX() >= window.getSize().x || getX() <= window.getSize().x * 0) {
+		return false;
+	}
+	return true;
+}
