@@ -5,7 +5,7 @@ P.S., this is not a good version of the actual game and there are many bugs, but
 
 
 # Dependancies
-* SFML Version **2.5.0** or **higher**!
+* **SFML** Version **2.5.0** or **higher**!
 * **C++17** with a supporting compiler!
 
 # New Information
