@@ -1,9 +1,13 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.8.2)
 project(Space)
 
-find_package(SFML COMPONENTS graphics audio REQUIRED)
+find_package(SFML 2.5.0 COMPONENTS graphics audio REQUIRED)
 
-add_executable(Space ./UFO.cpp
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_executable(Space ./Animation.cpp
+./UFO.cpp
 ./State.cpp
 ./Game.cpp
 ./LoseMenuState.cpp
