@@ -27,7 +27,7 @@ class PlayingState : public State {
 		PlayingState(StateMachine& machine, sf::RenderWindow& window, bool replace = true);
 		~PlayingState();
 
-		void handleKeyboardInputs(sf::Keyboard::Key key, bool isPressed);
+		void updateKeyboardInputs(sf::Keyboard::Key key, bool isPressed);
 
 		void updateEvents();
 		void update();
@@ -35,6 +35,7 @@ class PlayingState : public State {
 
 	private:
 		//Vectors
+		std::vector<PlaySound*> soundVector;
 		std::vector<Player*> playerVector;
 		std::vector<Invaders*> invaderVector;
 		std::vector<Shield*> shieldVector;
@@ -43,7 +44,7 @@ class PlayingState : public State {
 		//Class objects
 		Random<> random;
 		FPSCounter fpsCounter;
-		PlaySound playSound;
+		PlaySound playSound[5];
 		Player player;
 		Invaders invaders[15];
 		PlayerBullet pBullet;
@@ -53,7 +54,6 @@ class PlayingState : public State {
 
 
 		//Variables and Booleans
-		const int playerSpeed     = 2;
 		const float invaderSpeed  = 2;
 		const float bulletSpeed   = 9;
 		const float ufoSpeed	  = 3;
@@ -75,8 +75,8 @@ class PlayingState : public State {
 
 		//SFML
 		sf::Event sfEvent;
-		sf::Clock invaderClock, invaderDownClock, pBulletClock, iBulletClock, iBulletClock2, ufoClock, ufoSoundClock, deathClock;
-		float invaderTimer, invaderDownTimer, pBulletTimer, iBulletTimer, iBulletTimer2, ufoTimer, ufoSoundTimer, deathTimer;
+		sf::Clock dtClock, invaderClock, invaderDownClock, pBulletClock, iBulletClock, iBulletClock2, ufoClock, ufoSoundClock, deathClock;
+		float	  dtTimer, invaderTimer, invaderDownTimer, pBulletTimer, iBulletTimer, iBulletTimer2, ufoTimer, ufoSoundTimer, deathTimer;
 };
 
 #endif

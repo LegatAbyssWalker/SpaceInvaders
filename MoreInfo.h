@@ -29,6 +29,13 @@ const unsigned int playerBorderSpeed = 30;
 
 
 
+
+/*--------------IDEAS------------------*/
+//Add animation
+//Add invader movement in its own class and function
+
+
+
 /*--------------BUG FIXES--------------*/
 //
 

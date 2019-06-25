@@ -12,13 +12,15 @@ class Player {
 		
 		void renderTo(sf::RenderWindow& window);
 		void setPlayerPos(sf::Vector2<float> newPos);
-		void moveTo(sf::Vector2<float> distance);
+		void updatePlayer(float dt);
 		int getX();
 		int getY();
 		void updateBorderBounds();
 		sf::FloatRect getGlobalBounds();
 
 	private:
+		const unsigned int playerSpeed = 3;
+
 		sf::Texture texture;
 		sf::Sprite player;
 };

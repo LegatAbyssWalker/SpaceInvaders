@@ -22,8 +22,12 @@ void Player::setPlayerPos(sf::Vector2<float> newPos) {
 	player.setPosition(newPos);
 }
 
-void Player::moveTo(sf::Vector2<float> distance) {
-	player.move(distance);
+void Player::updatePlayer(float dt) {
+	sf::Vector2<float> playerMovement(0.f, 0.f);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { playerMovement.x -= playerSpeed; }
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { playerMovement.x += playerSpeed; }
+	player.move(playerMovement);
 }
 
 int Player::getX() {

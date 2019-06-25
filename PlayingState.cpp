@@ -35,25 +35,25 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	invaderVector.push_back(&invaders[14]);
 	
 	//Row 3
-	invaders[0].setInvaderPos(sf::Vector2<float>(screenWidth - 320, 200));
-	invaders[1].setInvaderPos(sf::Vector2<float>(screenWidth - 240, 200));
-	invaders[2].setInvaderPos(sf::Vector2<float>(screenWidth - 160, 200));
-	invaders[3].setInvaderPos(sf::Vector2<float>(screenWidth - 80,  200));
-	invaders[4].setInvaderPos(sf::Vector2<float>(screenWidth - 00,  200));
+	invaders[0].setInvaderPos(sf::Vector2<float>(screenWidth - 340, 200));
+	invaders[1].setInvaderPos(sf::Vector2<float>(screenWidth - 260, 200));
+	invaders[2].setInvaderPos(sf::Vector2<float>(screenWidth - 180, 200));
+	invaders[3].setInvaderPos(sf::Vector2<float>(screenWidth - 100, 200));
+	invaders[4].setInvaderPos(sf::Vector2<float>(screenWidth - 20,  200));
 	
 	//Row 2
-	invaders[5].setInvaderPos(sf::Vector2<float>(screenWidth - 320, 250));
-	invaders[6].setInvaderPos(sf::Vector2<float>(screenWidth - 240, 250));
-	invaders[7].setInvaderPos(sf::Vector2<float>(screenWidth - 160, 250));
-	invaders[8].setInvaderPos(sf::Vector2<float>(screenWidth - 80,  250));
-	invaders[9].setInvaderPos(sf::Vector2<float>(screenWidth - 00,  250));
+	invaders[5].setInvaderPos(sf::Vector2<float>(screenWidth - 340, 250));
+	invaders[6].setInvaderPos(sf::Vector2<float>(screenWidth - 260, 250));
+	invaders[7].setInvaderPos(sf::Vector2<float>(screenWidth - 180, 250));
+	invaders[8].setInvaderPos(sf::Vector2<float>(screenWidth - 100, 250));
+	invaders[9].setInvaderPos(sf::Vector2<float>(screenWidth - 20,  250));
 
 	//Row 1
-	invaders[10].setInvaderPos(sf::Vector2<float>(screenWidth - 320, 300));
-	invaders[11].setInvaderPos(sf::Vector2<float>(screenWidth - 240, 300));
-	invaders[12].setInvaderPos(sf::Vector2<float>(screenWidth - 160, 300));
-	invaders[13].setInvaderPos(sf::Vector2<float>(screenWidth - 80,  300));
-	invaders[14].setInvaderPos(sf::Vector2<float>(screenWidth - 00,  300));
+	invaders[10].setInvaderPos(sf::Vector2<float>(screenWidth - 340, 300));
+	invaders[11].setInvaderPos(sf::Vector2<float>(screenWidth - 260, 300));
+	invaders[12].setInvaderPos(sf::Vector2<float>(screenWidth - 180, 300));
+	invaders[13].setInvaderPos(sf::Vector2<float>(screenWidth - 100, 300));
+	invaders[14].setInvaderPos(sf::Vector2<float>(screenWidth - 20,  300));
 
 
 
@@ -69,23 +69,34 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 
 	//UFO information
 	ufoVector.push_back(&ufo);
+	ufoVector.push_back(&ufo);
 	ufo.setUFOPos(sf::Vector2<float>(screenWidth + 40, screenHeight * 0 + 100));
 
 
 
 	//Sound information
-	playSound.setMusic("res/sounds/backgroundSong.wav", 30, true);
+	//0 = Shooting Effect
+	//1 = Invader Killed Effect
+	//2 = Explosion
+	//3 = Ufo Sound Effect
+	//4 = Backround Music
+
+	soundVector.push_back(&playSound[0]);
+	soundVector.push_back(&playSound[1]);
+	soundVector.push_back(&playSound[2]);
+	soundVector.push_back(&playSound[3]);
+	soundVector.push_back(&playSound[4]);
+
+	playSound[4].setMusic("res/sounds/backgroundSong.wav", 30, true);
 }
 
 PlayingState::~PlayingState() {
-	playSound.stopMusic();
-	playSound.stopSound();
+	for (int x = 0; x < 5; x++) { playSound[x].stopSound(); playSound[x].stopMusic(); }
 }
 
-void PlayingState::handleKeyboardInputs(sf::Keyboard::Key key, bool isPressed) {
-	if (key == sf::Keyboard::A)		{ isMovingLeft = isPressed; }
-	if (key == sf::Keyboard::D)		{ isMovingRight = isPressed; }
+void PlayingState::updateKeyboardInputs(sf::Keyboard::Key key, bool isPressed) {
 	if (key == sf::Keyboard::Space) { isBulletFiring = isPressed; }
+	if (key == sf::Keyboard::R)		{ machine.run(machine.buildState<MainMenuState>(machine, window, true)); playSound[4].stopMusic(); }
 }
 
 void PlayingState::updateEvents() {
@@ -96,26 +107,24 @@ void PlayingState::updateEvents() {
 				break;
 
 			case sf::Event::KeyPressed:
-				handleKeyboardInputs(sfEvent.key.code, true);
+				updateKeyboardInputs(sfEvent.key.code, true);
 				break;
 
 			case sf::Event::KeyReleased:
-				handleKeyboardInputs(sfEvent.key.code, false);
+				updateKeyboardInputs(sfEvent.key.code, false);
 				break;
 		}
 	}
 }
 
 void PlayingState::update() {
+	dtTimer = dtClock.getElapsedTime().asSeconds();
+
 	fpsCounter.updateCounter();
+	player.updateBorderBounds();
+	player.updatePlayer(dtTimer);
 
 	/*------------------------------------------------------------------------------------------------------------------*/
-	//Player logic 
-	sf::Vector2<float> playerMovement(0.f, 0.f);
-	if (isMovingLeft) { playerMovement.x -= playerSpeed; }
-	if (isMovingRight) { playerMovement.x += playerSpeed; }
-	player.moveTo(playerMovement);
-
 	//Player bullet logic
 	sf::Vector2<float> pBulletMovement(0.f, 0.f);
 	pBulletMovement.y -= bulletSpeed;
@@ -125,7 +134,7 @@ void PlayingState::update() {
 			switch (pBulletCount) {
 				case 0:
 					pBullet.setBulletPos(sf::Vector2<float>(player.getX(), player.getY()));
-					playSound.setSound("res/sounds/shoot.wav", 35, false);
+					playSound[0].setSound("res/sounds/shoot.wav", 35, false);
 					break;
 			}
 
@@ -154,17 +163,17 @@ void PlayingState::update() {
 	invaderDownTimer = invaderDownClock.getElapsedTime().asSeconds();
 
 	//Left or Right
-	if (invaderTimer > 0) { isInvaderLeft = true; }
-	if (invaderTimer > 2.8) { isInvaderLeft = false; isInvaderRight = true; }
+	if (invaderTimer > 0)   { isInvaderLeft  = true; }
+	if (invaderTimer > 2.8) { isInvaderLeft  = false; isInvaderRight = true; }
 	if (invaderTimer > 5.6) { isInvaderRight = false; invaderClock.restart().asSeconds(); }
 	//Down
-	if (invaderDownTimer >= 20) { isInvaderDown = true; }
+	if (invaderDownTimer >= 20)   { isInvaderDown = true; }
 	if (invaderDownTimer >= 20.3) { isInvaderDown = false; invaderDownClock.restart().asSeconds(); }
 
 	//Movement
-	if (isInvaderLeft) { invaderMovement.x -= invaderSpeed; } //Left
+	if (isInvaderLeft)  { invaderMovement.x -= invaderSpeed; } //Left
 	if (isInvaderRight) { invaderMovement.x += invaderSpeed; } //Right
-	if (isInvaderDown) { invaderMovement.y += invaderSpeed; } //Down
+	if (isInvaderDown)  { invaderMovement.y += invaderSpeed; } //Down
 
 	//Collision and Movements
 	for (int x = 0; x < invaderVector.size(); x++) {
@@ -173,7 +182,7 @@ void PlayingState::update() {
 		if (pBullet.collisionWithInvaders(invaderVector[x])) {
 			invaderVector[x]->setInvaderPos(sf::Vector2<float>(100000, 100000));
 			pBullet.setBulletPos(sf::Vector2<float>(10000, 10000));
-			playSound.setSound("res/sounds/invaderKilled.wav", 35, false);
+			playSound[1].setSound("res/sounds/invaderKilled.wav", 35, false);
 			playerScore++;
 		}
 	}
@@ -210,7 +219,7 @@ void PlayingState::update() {
 	for (int x = 0; x < playerVector.size(); x++) {
 		if (iBullet.collisionWithPlayer(playerVector[x])) {
 			iBullet.setBulletPos(sf::Vector2<float>(100000, 100000));
-			playSound.setSound("res/sounds/explosion.wav", 20, false);
+			playSound[2].setSound("res/sounds/explosion.wav", 20, false);
 			playerLives--;
 		}
 	}
@@ -244,15 +253,15 @@ void PlayingState::update() {
 	ufoTimer = ufoClock.getElapsedTime().asSeconds();
 	//Moving Left
 	if (ufoTimer >= 15.000 && ufoTimer <= 19.000) { ufoMovement.x -= ufoSpeed;
-		if (ufo.isOnScreen(window) == true) { playSound.setSound("res/sounds/ufoSound.wav", 20, false); } 
-		else {playSound.stopSound(); }
+		if (ufo.isOnScreen(window) == true) { playSound[3].setSound("res/sounds/ufoSound.wav", 20, false); } 
+		else {playSound[3].stopSound(); }
 	}
 
 	//Moving Right
 	if (ufoTimer >= 30.000 && ufoTimer <= 34.000) {
 		ufoMovement.x += ufoSpeed;
-		if (ufo.isOnScreen(window) == true) { playSound.setSound("res/sounds/ufoSound.wav", 20, false); }
-		else { playSound.stopSound(); }
+		if (ufo.isOnScreen(window) == true) { playSound[3].setSound("res/sounds/ufoSound.wav", 20, false); }
+		else { playSound[3].stopSound(); }
 	}
 
 	if (ufoTimer >= 35.000) { ufoClock.restart().asSeconds(); }
@@ -271,8 +280,8 @@ void PlayingState::update() {
 
 	/*-------------------------------------------------------------------------------------------------------------------*/
 	//Win or Lose
-	if (playerScore >= enemyCount) { machine.run(machine.buildState<WinMenuState>(machine, window, true)); playSound.stopMusic(); }
-	if (playerLives <= 0) { machine.run(machine.buildState<LoseMenuState>(machine, window, true)); playSound.stopMusic(); }
+	if (playerScore >= enemyCount) { machine.run(machine.buildState<WinMenuState>(machine, window, true)); playSound[4].stopMusic(); }
+	if (playerLives <= 0) { machine.run(machine.buildState<LoseMenuState>(machine, window, true)); playSound[4].stopMusic(); }
 
 }
 
