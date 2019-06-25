@@ -9,7 +9,7 @@ P.S., this is not a good version of the actual game and there are many bugs, but
 * **C++17** with a **supporting compiler**!
 
 # New Information
-* Implimented an Animation Class, `Animation.h` and `Animation.cpp'.
+* Implimented an Animation Class, `Animation.h` and `Animation.cpp`.
 * Animation is now on the `Player.h` and `Player.cpp` class.
 * Removed Player code from `PlayingState.cpp` and implimented it into the Player class. 
 * Added the ability for the user to go back to the Main Menu without having to win or lose, just press 'R'. 
