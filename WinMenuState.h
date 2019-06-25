@@ -6,6 +6,7 @@
 #include "Text.h"
 #include "Button.h"
 #include "FPSCounter.h"
+#include "MoreInfo.h"
 
 #include "State.h"
 #include "StateMachine.h"
@@ -26,10 +27,6 @@ class WinMenuState : public State {
 		Button* quitGameButton;
 		Button* mainMenuButton;
 		FPSCounter fpsCounter;
-
-		//Variables
-		std::string arialFont = "res/fonts/arial.ttf";
-
 
 		//SFML
 		sf::Event sfEvent;

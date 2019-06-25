@@ -1,6 +1,8 @@
 #ifndef MOREINFO_H
 #define MOREINFO_H
 
+#define arialFont "res/fonts/arial.ttf"
+
 const unsigned int screenWidth = 1000;
 const unsigned int screenHeight = 900;
 const unsigned int groundHeight = 700;
@@ -31,7 +33,6 @@ const unsigned int playerBorderSpeed = 30;
 
 
 /*--------------IDEAS------------------*/
-//Add animation
 //Add invader movement in its own class and function
 
 

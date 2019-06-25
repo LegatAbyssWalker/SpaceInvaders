@@ -14,6 +14,7 @@ class StateMachine;
 #include "FPSCounter.h"
 #include "Button.h"
 #include "Text.h"
+#include "MoreInfo.h"
 
 
 class MainMenuState : public State {
@@ -31,10 +32,6 @@ class MainMenuState : public State {
 		Button* startGameButton;
 		Button* quitGameButton;
 		Text* titleText;
-
-
-		//Booleans and Variables
-		std::string arialFont = "res/fonts/arial.ttf";
 
 
 		//SFML

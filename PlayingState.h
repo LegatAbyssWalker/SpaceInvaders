@@ -9,6 +9,8 @@
 #include "SFML/System/Vector2.hpp"
 
 #include "FPSCounter.h"
+#include "Text.h"
+#include "MoreInfo.h"
 #include "Random.h"
 #include "PlaySound.h"
 #include "Player.h"
@@ -44,6 +46,7 @@ class PlayingState : public State {
 		//Class objects
 		Random<> random;
 		FPSCounter fpsCounter;
+		Text* text;
 		PlaySound playSound[5];
 		Player *player;
 		Invaders invaders[15];

@@ -78,6 +78,9 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	ufo.setUFOPos(sf::Vector2<float>(screenWidth + 40, screenHeight * 0 + 100));
 
 
+	//Text information
+	this->text = new Text(screenWidth - 100, screenHeight - 30, 25, arialFont, "Version 0.5.0", sf::Color(255, 255, 0));
+
 
 	//Sound information
 	//0 = Shooting Effect
@@ -97,6 +100,7 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 
 PlayingState::~PlayingState() {
 	delete this->player;
+	delete this->text;
 	for (int x = 0; x < 5; x++) { playSound[x].stopSound(); playSound[x].stopMusic(); }
 }
 
@@ -295,6 +299,8 @@ void PlayingState::render() {
 	window.clear();
 
 	//Render items
+	this->text->renderTo(window);
+
 	fpsCounter.renderTo(window);
 	this->player->renderTo(window);
 	pBullet.renderTo(window);
