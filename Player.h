@@ -4,11 +4,14 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/System/Vector2.hpp"
 
+#include "Animation.h"
+#include "InvaderBullet.h"
+
 #include <iostream>
 
 class Player {
 	public:
-		Player();
+		Player(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float switchTime, float speed);
 		
 		void renderTo(sf::RenderWindow& window);
 		void setPlayerPos(sf::Vector2<float> newPos);
@@ -18,10 +21,14 @@ class Player {
 		void updateBorderBounds();
 		sf::FloatRect getGlobalBounds();
 
-	private:
-		const unsigned int playerSpeed = 3;
+		bool collisionWithInvaderBullet(InvaderBullet* invaderBullet);
 
-		sf::Texture texture;
+	private:
+		Animation animation;
+		unsigned int row;
+		float speed;
+		bool isFacingRight;
+
 		sf::Sprite player;
 };
 

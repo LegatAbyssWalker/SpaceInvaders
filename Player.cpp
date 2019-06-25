@@ -3,15 +3,14 @@
 #include "MoreInfo.h"
 
 
-Player::Player() {
-	texture.loadFromFile("res/images/SIPlayer.png");
-	sf::Vector2<unsigned> playerChar = texture.getSize();
-	playerChar.x /= 1;
-	playerChar.y /= 1;
+Player::Player(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float switchTime, float speed)
+	: animation(texture, imageCount, switchTime) {
 
-	player.setTexture(texture);
-	player.setTextureRect(sf::IntRect(playerChar.x * 0, playerChar.y * 0, playerChar.x, playerChar.y));
-	player.setOrigin(playerChar.x / 2, playerChar.y / 2);
+	this->speed = speed;
+	row = 0;
+	isFacingRight = true;
+
+	player.setTexture(*texture);
 }
 
 void Player::renderTo(sf::RenderWindow& window) {
@@ -25,8 +24,19 @@ void Player::setPlayerPos(sf::Vector2<float> newPos) {
 void Player::updatePlayer(float dt) {
 	sf::Vector2<float> playerMovement(0.f, 0.f);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { playerMovement.x -= playerSpeed; }
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { playerMovement.x += playerSpeed; }
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { playerMovement.x -= speed; }
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { playerMovement.x += speed; }
+	if (playerMovement.x == 0.0f) { row = 0; }
+
+	else {
+		row = 1;
+
+		if (playerMovement.x > 0.0f) { isFacingRight = false; }
+		else { isFacingRight = true; }
+	}
+
+	animation.update(row, dt, isFacingRight);
+	player.setTextureRect(animation.uvRect);
 	player.move(playerMovement);
 }
 
@@ -45,4 +55,11 @@ void Player::updateBorderBounds() {
 
 sf::FloatRect Player::getGlobalBounds() {
 	return player.getGlobalBounds();
+}
+
+bool Player::collisionWithInvaderBullet(InvaderBullet* invaderBullet) {
+	if (getGlobalBounds().intersects(invaderBullet->getGlobalBounds())) {
+		return true;
+	}
+	return false;
 }

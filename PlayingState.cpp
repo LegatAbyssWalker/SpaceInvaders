@@ -12,9 +12,9 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	: State{ machine, window, replace } {
 
 	//Player information
-	player.setPlayerPos(sf::Vector2<float>(screenWidth / 2, groundHeight));
-	playerVector.push_back(&player);
-
+	playerTexture.loadFromFile("res/images/SIPlayer.png");
+	player = new Player(&playerTexture, sf::Vector2<unsigned>(1, 2), 0.3, 3.0f);
+	this->player->setPlayerPos(sf::Vector2<float>(screenWidth / 2, groundHeight));
 
 
 	//Invader information
@@ -57,6 +57,11 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 
 
 
+	//Invader Bullet Information
+	iBulletVector.push_back(&iBullet);
+
+
+
 	//Shield information
 	shieldVector.push_back(&shield[0]);
 	shieldVector.push_back(&shield[1]);
@@ -91,6 +96,7 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 }
 
 PlayingState::~PlayingState() {
+	delete this->player;
 	for (int x = 0; x < 5; x++) { playSound[x].stopSound(); playSound[x].stopMusic(); }
 }
 
@@ -121,8 +127,8 @@ void PlayingState::update() {
 	dtTimer = dtClock.getElapsedTime().asSeconds();
 
 	fpsCounter.updateCounter();
-	player.updateBorderBounds();
-	player.updatePlayer(dtTimer);
+	this->player->updateBorderBounds();
+	this->player->updatePlayer(dtTimer);
 
 	/*------------------------------------------------------------------------------------------------------------------*/
 	//Player bullet logic
@@ -133,7 +139,7 @@ void PlayingState::update() {
 		if (pBulletCount <= 1) {
 			switch (pBulletCount) {
 				case 0:
-					pBullet.setBulletPos(sf::Vector2<float>(player.getX(), player.getY()));
+					pBullet.setBulletPos(sf::Vector2<float>(this->player->getX(), this->player->getY()));
 					playSound[0].setSound("res/sounds/shoot.wav", 35, false);
 					break;
 			}
@@ -216,8 +222,8 @@ void PlayingState::update() {
 
 	iBullet.moveTo(iBulletMovement);
 
-	for (int x = 0; x < playerVector.size(); x++) {
-		if (iBullet.collisionWithPlayer(playerVector[x])) {
+	for (int x = 0; x < iBulletVector.size(); x++) {
+		if (this->player->collisionWithInvaderBullet(iBulletVector[x])) {
 			iBullet.setBulletPos(sf::Vector2<float>(100000, 100000));
 			playSound[2].setSound("res/sounds/explosion.wav", 20, false);
 			playerLives--;
@@ -290,7 +296,7 @@ void PlayingState::render() {
 
 	//Render items
 	fpsCounter.renderTo(window);
-	player.renderTo(window);
+	this->player->renderTo(window);
 	pBullet.renderTo(window);
 	iBullet.renderTo(window);
 	ufo.renderTo(window);

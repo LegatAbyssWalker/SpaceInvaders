@@ -4,7 +4,6 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/System/Vector2.hpp"
 
-#include "Player.h"
 #include "Shield.h"
 
 #include <iostream>
@@ -21,7 +20,6 @@ class InvaderBullet {
 		sf::FloatRect getGlobalBounds();
 
 		//Collision
-		bool collisionWithPlayer(Player* player);
 		bool collisionWithShield(Shield* shield); 
 
 

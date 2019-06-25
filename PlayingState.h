@@ -36,7 +36,7 @@ class PlayingState : public State {
 	private:
 		//Vectors
 		std::vector<PlaySound*> soundVector;
-		std::vector<Player*> playerVector;
+		std::vector<InvaderBullet*> iBulletVector;
 		std::vector<Invaders*> invaderVector;
 		std::vector<Shield*> shieldVector;
 		std::vector<UFO*> ufoVector;
@@ -45,7 +45,7 @@ class PlayingState : public State {
 		Random<> random;
 		FPSCounter fpsCounter;
 		PlaySound playSound[5];
-		Player player;
+		Player *player;
 		Invaders invaders[15];
 		PlayerBullet pBullet;
 		InvaderBullet iBullet;
@@ -75,6 +75,7 @@ class PlayingState : public State {
 
 		//SFML
 		sf::Event sfEvent;
+		sf::Texture playerTexture;
 		sf::Clock dtClock, invaderClock, invaderDownClock, pBulletClock, iBulletClock, iBulletClock2, ufoClock, ufoSoundClock, deathClock;
 		float	  dtTimer, invaderTimer, invaderDownTimer, pBulletTimer, iBulletTimer, iBulletTimer2, ufoTimer, ufoSoundTimer, deathTimer;
 };
