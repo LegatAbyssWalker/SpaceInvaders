@@ -38,17 +38,18 @@ class PlayingState : public State {
 	private:
 		//Vectors
 		std::vector<PlaySound*> soundVector;
-		std::vector<InvaderBullet*> iBulletVector;
+		std::vector<Player*> playerVector;
 		std::vector<Invaders*> invaderVector;
 		std::vector<Shield*> shieldVector;
 		std::vector<UFO*> ufoVector;
-		
+
+
 		//Class objects
 		Random<> random;
 		FPSCounter fpsCounter;
 		Text* text;
 		PlaySound playSound[5];
-		Player *player;
+		Player* player;
 		Invaders invaders[15];
 		PlayerBullet pBullet;
 		InvaderBullet iBullet;
@@ -63,7 +64,7 @@ class PlayingState : public State {
 		unsigned int pBulletCount = 0;
 
 		int shooter			 = 0;
-		int playerLives		 = 4;
+		int playerLives		 = 3;
 		int playerScore		 = 0;
 		int shieldProtection = 5;
 		int enemyCount		 = 15;

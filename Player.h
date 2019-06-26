@@ -5,7 +5,6 @@
 #include "SFML/System/Vector2.hpp"
 
 #include "Animation.h"
-#include "InvaderBullet.h"
 
 #include <iostream>
 
@@ -20,8 +19,6 @@ class Player {
 		int getY();
 		void updateBorderBounds();
 		sf::FloatRect getGlobalBounds();
-
-		bool collisionWithInvaderBullet(InvaderBullet* invaderBullet);
 
 	private:
 		Animation animation;

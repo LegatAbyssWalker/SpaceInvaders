@@ -39,6 +39,13 @@ sf::FloatRect InvaderBullet::getGlobalBounds() {
 	return bullet.getGlobalBounds();
 }
 
+bool InvaderBullet::collisionWithPlayer(Player* player) {
+	if (getGlobalBounds().intersects(player->getGlobalBounds())) {
+		return true;
+	}
+	return false;
+}
+
 bool InvaderBullet::collisionWithShield(Shield* shield) {
 	if (getGlobalBounds().intersects(shield->getGlobalBounds())) {
 		return true;

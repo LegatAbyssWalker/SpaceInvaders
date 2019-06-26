@@ -56,10 +56,3 @@ void Player::updateBorderBounds() {
 sf::FloatRect Player::getGlobalBounds() {
 	return player.getGlobalBounds();
 }
-
-bool Player::collisionWithInvaderBullet(InvaderBullet* invaderBullet) {
-	if (getGlobalBounds().intersects(invaderBullet->getGlobalBounds())) {
-		return true;
-	}
-	return false;
-}

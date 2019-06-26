@@ -8,13 +8,14 @@ class StateMachine;
 #include "WinMenuState.h"
 #include "LoseMenuState.h"
 
-PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool replace) 
+PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool replace)  
 	: State{ machine, window, replace } {
 
 	//Player information
 	playerTexture.loadFromFile("res/images/SIPlayer.png");
-	player = new Player(&playerTexture, sf::Vector2<unsigned>(1, 2), 0.3, 3.0f);
+	player = new Player(&playerTexture, sf::Vector2<unsigned>(1, 2), 0.3, 2.0f);
 	this->player->setPlayerPos(sf::Vector2<float>(screenWidth / 2, groundHeight));
+	playerVector.push_back(this->player);
 
 
 	//Invader information
@@ -54,12 +55,6 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	invaders[12].setInvaderPos(sf::Vector2<float>(screenWidth - 180, 300));
 	invaders[13].setInvaderPos(sf::Vector2<float>(screenWidth - 100, 300));
 	invaders[14].setInvaderPos(sf::Vector2<float>(screenWidth - 20,  300));
-
-
-
-	//Invader Bullet Information
-	iBulletVector.push_back(&iBullet);
-
 
 
 	//Shield information
@@ -226,8 +221,8 @@ void PlayingState::update() {
 
 	iBullet.moveTo(iBulletMovement);
 
-	for (int x = 0; x < iBulletVector.size(); x++) {
-		if (this->player->collisionWithInvaderBullet(iBulletVector[x])) {
+	for (int x = 0; x < playerVector.size(); x++) {
+		if (iBullet.collisionWithPlayer(playerVector[x])) {
 			iBullet.setBulletPos(sf::Vector2<float>(100000, 100000));
 			playSound[2].setSound("res/sounds/explosion.wav", 20, false);
 			playerLives--;
