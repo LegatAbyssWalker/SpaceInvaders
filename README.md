@@ -10,8 +10,10 @@ P.S., this is not a good version of the actual game and there are many bugs, but
 
 # New Information
 * Implimented new Animation class in `Animation.h` and `Animation.cpp`. 
-* Implimented animation to the `Player` and 'Invaders` classes!
+* Implimented animation to the `Player` and Invaders classes!
 * Added new `Shield` in `PlayingState.cpp`. 
+* Added new Invaders using the new Animation class!
+* Defined textures and sound effects in `MoreInfo.h`.
 
 # Current Ideas
 * Implimenting more Animations!
