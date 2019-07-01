@@ -4,15 +4,12 @@
 
 
 InvaderBullet::InvaderBullet() {
-	texture.loadFromFile("res/images/SIBullet.png");
+	texture.loadFromFile(bulletT);
 	sf::Vector2<unsigned> individualCharacter = texture.getSize();
-	individualCharacter.x /= 1;
-	individualCharacter.y /= 1;
-
+	
 	bullet.setTexture(texture);
 	bullet.setTextureRect(sf::IntRect(individualCharacter.x * 0, individualCharacter.y * 0, individualCharacter.x, individualCharacter.y));
 	bullet.setOrigin(individualCharacter.x / 2, individualCharacter.y / 2);
-	bullet.setScale(1 * 1.5, 1 * 1.5);
 }
 
 void InvaderBullet::renderTo(sf::RenderWindow & window) {

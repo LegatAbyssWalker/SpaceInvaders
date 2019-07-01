@@ -1,9 +1,9 @@
 #include "UFO.h"
 
-
+#include "MoreInfo.h"
 
 UFO::UFO() {
-	texture.loadFromFile("res/images/SIUFO.png");
+	texture.loadFromFile(UFOT);
 	sf::Vector2<unsigned> UFOChar = texture.getSize();
 	UFOChar.x /= 1;
 	UFOChar.y /= 1;

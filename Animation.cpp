@@ -1,7 +1,7 @@
 
 #include "Animation.h"
 
-Animation::Animation(sf::Texture* texture, const sf::Vector2u& imageCount, float switchTime) : imageCount(imageCount), switchTime(switchTime) {
+Animation::Animation(sf::Texture* texture, const sf::Vector2<unsigned>& imageCount, float switchTime) : imageCount(imageCount), switchTime(switchTime) {
 	currentImage.x = 0;
 
 	uvRect.width = texture->getSize().x / float(imageCount.x);

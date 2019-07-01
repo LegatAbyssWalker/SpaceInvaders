@@ -10,6 +10,7 @@ Player::Player(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float swi
 
 	player.setTexture(*texture);
 	player.setOrigin(player.getGlobalBounds().width / 2, player.getGlobalBounds().height / 2);
+	player.setScale(1 * 1.2, 1 * 1.2);
 }
 
 void Player::renderTo(sf::RenderWindow& window) {

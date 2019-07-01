@@ -1,12 +1,10 @@
 #include "Shield.h"
 
-
+#include "MoreInfo.h"
 
 Shield::Shield() {
-	texture.loadFromFile("res/images/SIShield.png");
+	texture.loadFromFile(shieldT);
 	sf::Vector2<unsigned> shieldChar = texture.getSize();
-	shieldChar.x /= 1;
-	shieldChar.y /= 1;
 
 	shield.setTexture(texture);
 	shield.setTextureRect(sf::IntRect(shieldChar.x * 0, shieldChar.y * 0, shieldChar.x, shieldChar.y));

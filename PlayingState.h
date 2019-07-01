@@ -87,7 +87,7 @@ class PlayingState : public State {
 
 		//SFML
 		sf::Event sfEvent;
-		sf::Texture playerTexture, invaderTexture;
+		sf::Texture playerTexture, playerExplosionTexture, invaderTexture1, invaderTexture2, invaderTexture3;
 		sf::Clock dtClock, invaderClock, invaderDownClock, pBulletClock, iBulletClock, iBulletClock2, ufoClock, ufoSoundClock, deathClock;
 		float	  dtTimer, invaderTimer, invaderDownTimer, pBulletTimer, iBulletTimer, iBulletTimer2, ufoTimer, ufoSoundTimer, deathTimer;
 };

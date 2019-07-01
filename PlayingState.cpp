@@ -12,16 +12,21 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	: State{ machine, window, replace } {
 
 	//Player information
-	playerTexture.loadFromFile("res/images/SIPlayer.png");
-	player = new Player(&playerTexture, sf::Vector2<unsigned>(1, 2), 0.3, 2.0f);
+	playerTexture.loadFromFile(playerT);
+	player = new Player(&playerTexture, sf::Vector2<unsigned>(1, 1), 0.3, 2.0f);
 	this->player->setPlayerPos(sf::Vector2<float>(SCREEN_WIDTH / 2, GROUND_HEIGHT));
 	playerVector.push_back(this->player);
 
 
 	//Invader information
-	invaderTexture.loadFromFile("res/images/SIInvader.png");
+	invaderTexture1.loadFromFile(invaderT1);
+	invaderTexture2.loadFromFile(invaderT2);
+	invaderTexture3.loadFromFile(invaderT3);
+
 	for (int x = 0; x < enemyCount; x++) { 
-		this->invaders[x] = new Invaders(&invaderTexture, sf::Vector2<unsigned>(2, 1), 0.5, 0.0f); 
+		if (x <= 4)				  { this->invaders[x] = new Invaders(&invaderTexture1, sf::Vector2<unsigned>(2, 1), 0.5, 0.0f); }
+		else if (x > 4 && x <= 9) { this->invaders[x] = new Invaders(&invaderTexture2, sf::Vector2<unsigned>(2, 1), 0.5, 0.0f); }
+		else if (x > 9)		      { this->invaders[x] = new Invaders(&invaderTexture3, sf::Vector2<unsigned>(2, 1), 0.5, 0.0f); }
 		this->invaderVector.push_back(this->invaders[x]); 
 	}
 	
@@ -65,7 +70,7 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	//4 = Backround Music
 
 	for (int x = 0; x < soundCount; x++) { soundVector.push_back(&playSound[x]); }
-	playSound[4].setMusic("res/sounds/backgroundSong.wav", 30, true);
+	playSound[4].setMusic(backgroundSE, 30, true);
 }
 
 PlayingState::~PlayingState() {
@@ -115,7 +120,7 @@ void PlayingState::update() {
 			switch (pBulletCount) {
 				case 0:
 					pBullet.setBulletPos(sf::Vector2<float>(this->player->getX(), this->player->getY()));
-					playSound[0].setSound("res/sounds/shoot.wav", 35, false);
+					playSound[0].setSound(shootingSE, 35, false);
 					break;
 			}
 
@@ -166,7 +171,7 @@ void PlayingState::update() {
 		if (pBullet.collisionWithInvaders(invaderVector[x])) {
 			invaderVector[x]->setInvaderPos(sf::Vector2<float>(100000, 100000));
 			pBullet.setBulletPos(sf::Vector2<float>(10000, 10000));
-			playSound[1].setSound("res/sounds/invaderKilled.wav", 35, false);
+			playSound[1].setSound(invaderKilledSE, 35, false);
 			playerScore++;
 		}
 	}
@@ -203,7 +208,7 @@ void PlayingState::update() {
 	for (int x = 0; x < playerVector.size(); x++) {
 		if (iBullet.collisionWithPlayer(playerVector[x])) {
 			iBullet.setBulletPos(sf::Vector2<float>(100000, 100000));
-			playSound[2].setSound("res/sounds/explosion.wav", 20, false);
+			playSound[2].setSound(explosionSE, 20, false);
 			playerLives--;
 		}
 	}
@@ -237,14 +242,14 @@ void PlayingState::update() {
 	ufoTimer = ufoClock.getElapsedTime().asSeconds();
 	//Moving Left
 	if (ufoTimer >= 15.000 && ufoTimer <= 19.000) { ufoMovement.x -= ufoSpeed;
-		if (ufo.isOnScreen(window) == true) { playSound[3].setSound("res/sounds/ufoSound.wav", 20, false); } 
+		if (ufo.isOnScreen(window) == true) { playSound[3].setSound(UFOSE, 20, false); } 
 		else {playSound[3].stopSound(); }
 	}
 
 	//Moving Right
 	if (ufoTimer >= 30.000 && ufoTimer <= 34.000) {
 		ufoMovement.x += ufoSpeed;
-		if (ufo.isOnScreen(window) == true) { playSound[3].setSound("res/sounds/ufoSound.wav", 20, false); }
+		if (ufo.isOnScreen(window) == true) { playSound[3].setSound(UFOSE, 20, false); }
 		else { playSound[3].stopSound(); }
 	}
 
