@@ -9,17 +9,15 @@ P.S., this is not a good version of the actual game and there are many bugs, but
 * **C++17** with a **supporting compiler**!
 
 # New Information
-* Implimented an Animation Class, `Animation.h` and `Animation.cpp`.
-* Animation is now on the `Player.h` and `Player.cpp` class.
-* Removed Player code from `PlayingState.cpp` and implimented it into the Player class. 
-* Added the ability for the user to go back to the Main Menu without having to win or lose, just press 'R'. 
+* Implimented new Animation class in `Animation.h` and `Animation.cpp`. 
+* Implimented animation to the `Player` and 'Invaders` classes!
+* Added new `Shield` in `PlayingState.cpp`. 
 
 # Current Ideas
-* Implimenting Animation to Invaders.
+* Implimenting more Animations!
+* Adding a Scoring and Lives System!
 
 # Bug Fixes
-* Fixed Invader, Player, and UFO movements.
-* Fixed Sound and Music functionality.
 * Fixed Minor Bugs
 
 # More
