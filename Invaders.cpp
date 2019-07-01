@@ -2,16 +2,13 @@
 
 
 
-Invaders::Invaders() {
-	texture.loadFromFile("res/images/SIInvader.png");
-	sf::Vector2<unsigned> invaderChar = texture.getSize();
-	invaderChar.x /= 1;
-	invaderChar.y /= 1;
+Invaders::Invaders(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float switchTime, float speed)
+	: animation(texture, imageCount, switchTime) {
 
-	invader.setTexture(texture);
-	invader.setTextureRect(sf::IntRect(invaderChar.x * 0, invaderChar.y * 0, invaderChar.x, invaderChar.y));
-	invader.setOrigin(invaderChar.x / 2, invaderChar.y / 2);
-	invader.scale(1 * 1.5, 1 * 1.5);
+	this->speed = speed;
+
+	invader.setTexture(*texture);
+	invader.setOrigin(invader.getGlobalBounds().width / 2, invader.getGlobalBounds().height / 2);
 }
 
 void Invaders::renderTo(sf::RenderWindow& window) {
@@ -20,6 +17,11 @@ void Invaders::renderTo(sf::RenderWindow& window) {
 
 void Invaders::setInvaderPos(sf::Vector2<float> newPos) {
 	invader.setPosition(newPos); 
+}
+
+void Invaders::update() {
+	animation.update();
+	invader.setTextureRect(animation.uvRect);
 }
 
 void Invaders::moveTo(sf::Vector2<float> distance) {

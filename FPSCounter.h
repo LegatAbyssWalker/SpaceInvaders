@@ -17,8 +17,6 @@ class FPSCounter {
 		void updateCounter();
 
 	private:
-		std::string arialFont = "res/fonts/arial.ttf";
-
 		sf::Font gameFont;
 		sf::Text framerateCounter;
 

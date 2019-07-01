@@ -3,7 +3,7 @@
 
 
 void Game::run() {
-	window.create(sf::VideoMode(screenWidth, screenHeight), "Space Invaders!");
+	window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Space Invaders!");
 	window.setPosition({ window.getPosition().x, window.getPosition().y - 40 });
 	window.setFramerateLimit(120);
 

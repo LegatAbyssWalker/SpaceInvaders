@@ -14,7 +14,7 @@ class Player {
 		
 		void renderTo(sf::RenderWindow& window);
 		void setPlayerPos(sf::Vector2<float> newPos);
-		void updatePlayer(float dt);
+		void updatePlayer();
 		int getX();
 		int getY();
 		void updateBorderBounds();
@@ -22,11 +22,9 @@ class Player {
 
 	private:
 		Animation animation;
-		unsigned int row;
 		float speed;
-		bool isFacingRight;
 
-		sf::Sprite player;
+		sf::Sprite player, playerSpriteLives[3];
 };
 
 #endif

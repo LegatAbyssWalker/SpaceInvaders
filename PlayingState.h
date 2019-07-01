@@ -50,10 +50,10 @@ class PlayingState : public State {
 		Text* text;
 		PlaySound playSound[5];
 		Player* player;
-		Invaders invaders[15];
+		Invaders* invaders[15];
 		PlayerBullet pBullet;
 		InvaderBullet iBullet;
-		Shield shield[3];
+		Shield shield[4];
 		UFO ufo;
 
 
@@ -63,11 +63,19 @@ class PlayingState : public State {
 		const float ufoSpeed	  = 3;
 		unsigned int pBulletCount = 0;
 
+		const int initialInvaderX  = 340;
+		int changedInvaderX		   = 340;
+		const int invaderInEachRow = 5;
+
+		int rowCount    = 3;
+		int enemyCount  = 15;
+		int shieldCount = 4;
+		int soundCount  = 5;
+
 		int shooter			 = 0;
 		int playerLives		 = 3;
 		int playerScore		 = 0;
 		int shieldProtection = 5;
-		int enemyCount		 = 15;
 
 		bool isMovingLeft   = false;
 		bool isMovingRight  = false;
@@ -79,7 +87,7 @@ class PlayingState : public State {
 
 		//SFML
 		sf::Event sfEvent;
-		sf::Texture playerTexture;
+		sf::Texture playerTexture, invaderTexture;
 		sf::Clock dtClock, invaderClock, invaderDownClock, pBulletClock, iBulletClock, iBulletClock2, ufoClock, ufoSoundClock, deathClock;
 		float	  dtTimer, invaderTimer, invaderDownTimer, pBulletTimer, iBulletTimer, iBulletTimer2, ufoTimer, ufoSoundTimer, deathTimer;
 };

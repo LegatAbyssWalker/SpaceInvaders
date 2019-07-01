@@ -14,14 +14,14 @@ MainMenuState::MainMenuState(StateMachine& machine, sf::RenderWindow& window, bo
 	: State{ machine, window, replace } {
 
 	//Buttons
-	this->quitGameButton = new Button(window.getSize().x / 2, window.getSize().y / 2 + 40, 150, 50, 20, arialFont, "Quit Game",
+	this->quitGameButton = new Button(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 40, 150, 50, 20, arialFont, "Quit Game",
 		sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(255, 255, 255));
 
-	this->startGameButton = new Button(window.getSize().x / 2, window.getSize().y / 2 - 40, 150, 50, 20, arialFont, "Start Game",
+	this->startGameButton = new Button(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 40, 150, 50, 20, arialFont, "Start Game",
 		sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(255, 255, 255));
 
 	//Text
-	this->titleText = new Text(window.getSize().x / 2, window.getSize().y / 4, 40, arialFont, "Space Invaders!", sf::Color(0, 139, 139));
+	this->titleText = new Text(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4, 40, arialFont, "Space Invaders!", sf::Color(0, 139, 139));
 
 }
 

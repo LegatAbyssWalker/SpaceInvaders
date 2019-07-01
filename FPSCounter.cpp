@@ -1,6 +1,6 @@
 #include "FPSCounter.h"
 
-
+#include "MoreInfo.h"
 
 FPSCounter::FPSCounter() {
 	gameFont.loadFromFile(arialFont);

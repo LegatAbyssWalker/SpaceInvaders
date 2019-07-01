@@ -7,10 +7,9 @@ Player::Player(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float swi
 	: animation(texture, imageCount, switchTime) {
 
 	this->speed = speed;
-	row = 0;
-	isFacingRight = true;
 
 	player.setTexture(*texture);
+	player.setOrigin(player.getGlobalBounds().width / 2, player.getGlobalBounds().height / 2);
 }
 
 void Player::renderTo(sf::RenderWindow& window) {
@@ -21,24 +20,16 @@ void Player::setPlayerPos(sf::Vector2<float> newPos) {
 	player.setPosition(newPos);
 }
 
-void Player::updatePlayer(float dt) {
+void Player::updatePlayer() {
 	sf::Vector2<float> playerMovement(0.f, 0.f);
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { playerMovement.x -= speed; }
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { playerMovement.x += speed; }
-	if (playerMovement.x == 0.0f) { row = 0; }
-
-	else {
-		row = 1;
-
-		if (playerMovement.x > 0.0f) { isFacingRight = false; }
-		else { isFacingRight = true; }
-	}
-
-	animation.update(row, dt, isFacingRight);
+	
+	animation.update();
 	player.setTextureRect(animation.uvRect);
 	player.move(playerMovement);
 }
+
 
 int Player::getX() {
 	return player.getPosition().x;
@@ -49,8 +40,8 @@ int Player::getY() {
 }
 
 void Player::updateBorderBounds() {
-	if (getX() <= screenWidth * 0) { setPlayerPos(sf::Vector2<float>(getX() + playerBorderSpeed, getY())); } //Left Side
-	if (getX() >= screenWidth)	   { setPlayerPos(sf::Vector2<float>(getX() - playerBorderSpeed, getY())); } //Right Side
+	if (getX() <= SCREEN_WIDTH * 0) { setPlayerPos(sf::Vector2<float>(getX() + PLAYER_BORDER_SPEED, getY())); } //Left Side
+	if (getX() >= SCREEN_WIDTH)	    { setPlayerPos(sf::Vector2<float>(getX() - PLAYER_BORDER_SPEED, getY())); } //Right Side
 }
 
 sf::FloatRect Player::getGlobalBounds() {

@@ -3,20 +3,24 @@
 
 #include "SFML/Graphics.hpp"
 
+#include <chrono>
+
 class Animation {
 	public:
-		Animation(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float switchTime);
-		
-		void update(int row, float deltaTime, bool faceRight);
+		Animation(sf::Texture* texture, const sf::Vector2u& imageCount, float switchTime);
 
-
-	public:
+		void update();
 		sf::IntRect uvRect;
 
 	private:
-		sf::Vector2<unsigned> imageCount, currentImage;
+		const sf::Vector2u imageCount;
+		sf::Vector2u currentImage;
 
-		float totalTime, switchTime;
-	};
+		std::chrono::steady_clock::time_point tp = std::chrono::steady_clock::now();
+		float elapsed() {
+			return std::chrono::duration<float>(std::chrono::steady_clock::now() - tp).count();
+		}
+		const float switchTime;
+};
 
 #endif

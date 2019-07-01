@@ -3,12 +3,11 @@
 
 #define arialFont "res/fonts/arial.ttf"
 
-const unsigned int screenWidth = 1000;
-const unsigned int screenHeight = 900;
-const unsigned int groundHeight = 700;
+#define SCREEN_WIDTH 1000
+#define SCREEN_HEIGHT 900
+#define GROUND_HEIGHT 800
 
-const unsigned int playerBorderSpeed = 30;
-
+#define PLAYER_BORDER_SPEED 30
 
 /*--------------COLOR INFO-------------*/
 //www.rapidtables.com/web/color/RGB_Color.html
