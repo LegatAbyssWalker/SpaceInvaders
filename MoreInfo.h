@@ -11,6 +11,7 @@
 
 //Fonts
 #define arialFont "res/fonts/arial.ttf"
+#define spaceInvadersFont "res/fonts/space_invaders.ttf"
 
 //Textures
 #define playerT "res/images/SIPlayer.png"
@@ -45,4 +46,5 @@
 //Brown		 = 61, 53, 53
 //Gray		 = 128, 128, 128
 //Navy		 = 0, 0, 128
+
 #endif

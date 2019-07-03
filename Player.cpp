@@ -3,6 +3,7 @@
 #include "MoreInfo.h"
 
 
+
 Player::Player(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float switchTime, float speed)
 	: animation(texture, imageCount, switchTime) {
 
@@ -23,8 +24,12 @@ void Player::setPlayerPos(sf::Vector2<float> newPos) {
 
 void Player::updatePlayer() {
 	sf::Vector2<float> playerMovement(0.f, 0.f);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { playerMovement.x -= speed; }
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { playerMovement.x += speed; }
+	using Key = sf::Keyboard::Key;
+	auto keyDown = [](sf::Keyboard::Key k) { return sf::Keyboard::isKeyPressed(k); };
+
+	if (keyDown(Key::A)) { playerMovement.x -= speed; }
+	if (keyDown(Key::D)) { playerMovement.x += speed; }
+
 	
 	animation.update();
 	player.setTextureRect(animation.uvRect);

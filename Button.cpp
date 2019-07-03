@@ -2,7 +2,7 @@
 
 
 
-Button::Button(float posX, float posY, float width, float height, unsigned int characterSize, std::string fontFile, std::string text, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor, sf::Color textColor) {
+Button::Button(float posX, float posY, float width, float height, unsigned int characterSize, std::string fontFile, std::string text, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor, sf::Color textColor, sf::Color textHoverColor) {
 	this->buttonState = BTN_IDLE;
 
 	this->shape.setSize(sf::Vector2<float>(width, height));
@@ -20,6 +20,9 @@ Button::Button(float posX, float posY, float width, float height, unsigned int c
 	this->idleColor = idleColor;
 	this->hoverColor = hoverColor;
 	this->activeColor = activeColor;
+	this->textHoverColor = textHoverColor;
+
+	this->textColor = textColor;
 
 	this->shape.setFillColor(this->idleColor);
 }
@@ -48,10 +51,14 @@ void Button::update(const sf::Vector2<float> mousePos) {
 	switch (this->buttonState) {
 		case BTN_IDLE:
 			this->shape.setFillColor(this->idleColor);
+			this->text.setFillColor(textColor);
 			break;
+
 		case BTN_HOVER:
 			this->shape.setFillColor(this->hoverColor);
+			this->text.setFillColor(this->textHoverColor);
 			break;
+
 		case BTN_ACTIVE:
 			this->shape.setFillColor(this->activeColor);
 			break;

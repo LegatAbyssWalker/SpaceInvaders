@@ -11,6 +11,11 @@ class StateMachine;
 PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool replace)  
 	: State{ machine, window, replace } {
 
+	//Text information
+	this->scoreText = new OStringText(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0 + 30, 25, spaceInvadersFont, sf::Color(255, 255, 255));
+	this->verisonText = new Text(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 30, 25, arialFont, "Version 0.7.0", sf::Color(255, 255, 0));
+
+
 	//Player information
 	playerTexture.loadFromFile(playerT);
 	player = new Player(&playerTexture, sf::Vector2<unsigned>(1, 1), 0.3, 2.0f);
@@ -19,14 +24,14 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 
 
 	//Invader information
-	invaderTexture1.loadFromFile(invaderT1);
-	invaderTexture2.loadFromFile(invaderT2);
-	invaderTexture3.loadFromFile(invaderT3);
+	invaderTexture[0].loadFromFile(invaderT1);
+	invaderTexture[1].loadFromFile(invaderT2);
+	invaderTexture[2].loadFromFile(invaderT3);
 
 	for (int x = 0; x < enemyCount; x++) { 
-		if (x <= 4)				  { this->invaders[x] = new Invaders(&invaderTexture1, sf::Vector2<unsigned>(2, 1), 0.5, 0.0f); }
-		else if (x > 4 && x <= 9) { this->invaders[x] = new Invaders(&invaderTexture2, sf::Vector2<unsigned>(2, 1), 0.5, 0.0f); }
-		else if (x > 9)		      { this->invaders[x] = new Invaders(&invaderTexture3, sf::Vector2<unsigned>(2, 1), 0.5, 0.0f); }
+		if (x <= 4)				  { this->invaders[x] = new Invaders(&invaderTexture[0], sf::Vector2<unsigned>(2, 1), 1.0, 0.0f); }
+		else if (x > 4 && x <= 9) { this->invaders[x] = new Invaders(&invaderTexture[1], sf::Vector2<unsigned>(2, 1), 1.0, 0.0f); }
+		else if (x > 9)		      { this->invaders[x] = new Invaders(&invaderTexture[2], sf::Vector2<unsigned>(2, 1), 1.0, 0.0f); }
 		this->invaderVector.push_back(this->invaders[x]); 
 	}
 	
@@ -39,7 +44,7 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	changedInvaderX = initialInvaderX;
 
 	//Row 1
-	for (int x = enemyCount / rowCount + invaderInEachRow; x < invaderInEachRow * rowCount; x++) { this->invaders[x]->setInvaderPos(sf::Vector2<float>(SCREEN_WIDTH - changedInvaderX, 350)); changedInvaderX -= 80; }
+	for (int x = enemyCount / rowCount + invaderInEachRow; x < invaderInEachRow * rowCount; x++) { this->invaders[x]->setInvaderPos(sf::Vector2<float>(SCREEN_WIDTH - changedInvaderX - 10, 350)); changedInvaderX -= 80; }
 	changedInvaderX = initialInvaderX;
 
 
@@ -58,10 +63,6 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	ufo.setUFOPos(sf::Vector2<float>(SCREEN_WIDTH + 40, SCREEN_HEIGHT * 0 + 100));
 
 
-	//Text information
-	this->text = new Text(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 30, 25, arialFont, "Version 0.7.0", sf::Color(255, 255, 0));
-
-
 	//Sound information
 	//0 = Shooting Effect
 	//1 = Invader Killed Effect
@@ -75,10 +76,11 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 
 PlayingState::~PlayingState() {
 	delete this->player;
-	delete this->text;
+	delete this->verisonText;
+	delete this->scoreText;
+
 	for (int x = 0; x < soundCount; x++)		   { playSound[x].stopSound(); playSound[x].stopMusic(); }
 	for (int x = 0; x < invaderVector.size(); x++) { delete this->invaders[x]; }
-
 }
 
 void PlayingState::updateKeyboardInputs(sf::Keyboard::Key key, bool isPressed) {
@@ -106,6 +108,8 @@ void PlayingState::updateEvents() {
 
 void PlayingState::update() {
 	fpsCounter.updateCounter();
+	scoreText->updateOText("SCORE<1>\n\t\t", playerScore - invaderPoints);
+
 
 	/*------------------------------------------------------------------------------------------------------------------*/
 	this->player->updateBorderBounds();
@@ -172,7 +176,8 @@ void PlayingState::update() {
 			invaderVector[x]->setInvaderPos(sf::Vector2<float>(100000, 100000));
 			pBullet.setBulletPos(sf::Vector2<float>(10000, 10000));
 			playSound[1].setSound(invaderKilledSE, 35, false);
-			playerScore++;
+			playerScore += invaderPoints;
+			enemyKilled++;
 		}
 	}
 
@@ -183,7 +188,7 @@ void PlayingState::update() {
 	iBulletTimer = iBulletClock.getElapsedTime().asSeconds();
 	if (iBulletTimer > 1.000) {
 		shooter = random.getInt(1, 15);
-
+	
 		switch (shooter) {
 			case 1:  if (this->invaders[0]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[0]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[0]->getX(),  this->invaders[0]->getY())); }  if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
 			case 2:  if (this->invaders[1]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[1]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[1]->getX(),  this->invaders[1]->getY())); }  if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
@@ -262,6 +267,7 @@ void PlayingState::update() {
 			ufoVector[x]->setUFOPos(sf::Vector2<float>(SCREEN_WIDTH + 40, SCREEN_HEIGHT * 0 + 100));
 			ufoClock.restart().asSeconds();
 			pBullet.setBulletPos(sf::Vector2<float>(1000000, 10000));
+			playerScore += ufoPoints;
 		}
 	}
 
@@ -269,7 +275,7 @@ void PlayingState::update() {
 
 	/*-------------------------------------------------------------------------------------------------------------------*/
 	//Win or Lose
-	if (playerScore >= enemyCount) { machine.run(machine.buildState<WinMenuState>(machine, window, true)); playSound[4].stopMusic(); }
+	if (enemyKilled == enemyCount) { machine.run(machine.buildState<WinMenuState>(machine, window, true)); playSound[4].stopMusic(); }
 	if (playerLives <= 0) { machine.run(machine.buildState<LoseMenuState>(machine, window, true)); playSound[4].stopMusic(); }
 
 }
@@ -278,9 +284,10 @@ void PlayingState::render() {
 	window.clear();
 
 	//Render items
-	this->text->renderTo(window);
-
 	fpsCounter.renderTo(window);
+	this->verisonText->renderTo(window);
+	this->scoreText->renderTo(window);
+
 	this->player->renderTo(window);
 	pBullet.renderTo(window);
 	iBullet.renderTo(window);

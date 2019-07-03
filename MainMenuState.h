@@ -33,7 +33,6 @@ class MainMenuState : public State {
 		Button* quitGameButton;
 		Text* titleText;
 
-
 		//SFML
 		sf::Event sfEvent;
 };

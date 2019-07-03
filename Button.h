@@ -14,7 +14,7 @@ enum ButtonStates { BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE };
 
 class Button {
 	public:
-		Button(float posX, float posY, float width, float height, unsigned int characterSize, std::string fontFile, std::string text, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor, sf::Color textColor);
+		Button(float posX, float posY, float width, float height, unsigned int characterSize, std::string fontFile, std::string text, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor, sf::Color textColor, sf::Color textHoverColor);
 
 		//Button functionality
 		const bool isPressed() const;
@@ -29,7 +29,7 @@ class Button {
 		sf::Font buttonFont;
 		sf::Text text;
 	
-		sf::Color idleColor, hoverColor, activeColor;
+		sf::Color idleColor, hoverColor, activeColor, textColor, textHoverColor;
 };
 
 #endif

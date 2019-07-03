@@ -11,14 +11,14 @@ WinMenuState::WinMenuState(StateMachine& machine, sf::RenderWindow& window, bool
 	: State{ machine, window, replace } {
 
 		//Text
-		this->winText = new Text(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3, 40, arialFont, "YOU WIN!", sf::Color(0, 139, 139));
+		this->winText = new Text(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3, 40, spaceInvadersFont, "YOU WIN!", sf::Color(255, 255, 255));
 
 		//Buttons
-		this->mainMenuButton = new Button(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 150, 50, 20, arialFont, "Main Menu",
-			sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(255, 255, 225));
+		this->mainMenuButton = new Button(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 150, 50, 20, spaceInvadersFont, "Main Menu",
+			sf::Color(0, 0, 0), sf::Color(0, 0, 0), sf::Color(0, 0, 0), sf::Color(255, 255, 255), sf::Color(0, 255, 255));
 
-		this->quitGameButton = new Button(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 100, 150, 50, 20, arialFont, "Quit Game",
-			sf::Color(128, 128, 128), sf::Color(192, 192, 192), sf::Color(0, 0, 128), sf::Color(255, 255, 255));
+		this->quitGameButton = new Button(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 100, 150, 50, 20, spaceInvadersFont, "Quit Game",
+			sf::Color(0, 0, 0), sf::Color(0, 0, 0), sf::Color(0, 0, 0), sf::Color(255, 255, 255), sf::Color(0, 255, 255));
 }
 
 WinMenuState::~WinMenuState() {

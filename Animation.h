@@ -13,7 +13,7 @@ class Animation {
 		sf::IntRect uvRect;
 
 	private:
-		const sf::Vector2u imageCount;
+		const sf::Vector2<unsigned> imageCount;
 		sf::Vector2<unsigned> currentImage;
 
 		std::chrono::steady_clock::time_point tp = std::chrono::steady_clock::now();

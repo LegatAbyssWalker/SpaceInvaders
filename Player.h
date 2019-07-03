@@ -5,6 +5,7 @@
 #include "SFML/System/Vector2.hpp"
 
 #include "Animation.h"
+#include "ToggleKey.h"
 
 #include <iostream>
 
@@ -23,6 +24,7 @@ class Player {
 	private:
 		Animation animation;
 		float speed;
+
 
 		sf::Sprite player, playerSpriteLives[3];
 };

@@ -13,6 +13,8 @@
 #include "MoreInfo.h"
 #include "Random.h"
 #include "PlaySound.h"
+#include "OStringText.h"
+
 #include "Player.h"
 #include "Invaders.h"
 #include "PlayerBullet.h"
@@ -34,7 +36,7 @@ class PlayingState : public State {
 		void updateEvents();
 		void update();
 		void render();
-
+		
 	private:
 		//Vectors
 		std::vector<PlaySound*> soundVector;
@@ -47,8 +49,10 @@ class PlayingState : public State {
 		//Class objects
 		Random<> random;
 		FPSCounter fpsCounter;
-		Text* text;
+		Text* verisonText;
 		PlaySound playSound[5];
+		OStringText* scoreText;
+
 		Player* player;
 		Invaders* invaders[15];
 		PlayerBullet pBullet;
@@ -67,8 +71,12 @@ class PlayingState : public State {
 		int changedInvaderX		   = 340;
 		const int invaderInEachRow = 5;
 
+		const unsigned int ufoPoints	 = 100;
+		const unsigned int invaderPoints = 20;
+
 		int rowCount    = 3;
-		int enemyCount  = 15;
+		int enemyCount  = 16;
+		int enemyKilled = 0;
 		int shieldCount = 4;
 		int soundCount  = 5;
 
@@ -87,7 +95,7 @@ class PlayingState : public State {
 
 		//SFML
 		sf::Event sfEvent;
-		sf::Texture playerTexture, playerExplosionTexture, invaderTexture1, invaderTexture2, invaderTexture3;
+		sf::Texture playerTexture, invaderTexture[3];
 		sf::Clock dtClock, invaderClock, invaderDownClock, pBulletClock, iBulletClock, iBulletClock2, ufoClock, ufoSoundClock, deathClock;
 		float	  dtTimer, invaderTimer, invaderDownTimer, pBulletTimer, iBulletTimer, iBulletTimer2, ufoTimer, ufoSoundTimer, deathTimer;
 };
