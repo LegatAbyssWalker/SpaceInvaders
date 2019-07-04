@@ -20,9 +20,7 @@ add_executable(Space ./UFO.cpp
 ./Player.cpp
 ./FPSCounter.cpp
 ./PlaySound.cpp
-./Shield.cpp
-./ToggleKey.cpp
-./OStringText.cpp)
+./Shield.cpp)
 target_link_libraries(Space sfml-graphics sfml-audio)
 
 file(COPY res/ DESTINATION ${CMAKE_BINARY_DIR}/res)

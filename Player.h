@@ -6,6 +6,7 @@
 
 #include "Animation.h"
 #include "ToggleKey.h"
+#include "OStringText.h"
 
 #include <iostream>
 
@@ -16,17 +17,20 @@ class Player {
 		void renderTo(sf::RenderWindow& window);
 		void setPlayerPos(sf::Vector2<float> newPos);
 		void updatePlayer();
+		void updateLives(int lives);
+		
 		int getX();
 		int getY();
 		void updateBorderBounds();
 		sf::FloatRect getGlobalBounds();
 
 	private:
+		OStringText* playerLivesText;
+
 		Animation animation;
 		float speed;
 
-
-		sf::Sprite player, playerSpriteLives[3];
+		sf::Sprite player;
 };
 
 #endif

@@ -12,10 +12,16 @@ Player::Player(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float swi
 	player.setTexture(*texture);
 	player.setOrigin(player.getGlobalBounds().width / 2, player.getGlobalBounds().height / 2);
 	player.setScale(1 * 1.2, 1 * 1.2);
+
+
+
+	playerLivesText = new OStringText(SCREEN_WIDTH * 0 + 100, SCREEN_HEIGHT - 50, 25, spaceInvadersFont, sf::Color(255, 255, 255));
 }
 
 void Player::renderTo(sf::RenderWindow& window) {
 	window.draw(player);
+
+	this->playerLivesText->renderTo(window);
 }
 
 void Player::setPlayerPos(sf::Vector2<float> newPos) {
@@ -23,6 +29,7 @@ void Player::setPlayerPos(sf::Vector2<float> newPos) {
 }
 
 void Player::updatePlayer() {
+	//Movement/Animation
 	sf::Vector2<float> playerMovement(0.f, 0.f);
 	using Key = sf::Keyboard::Key;
 	auto keyDown = [](sf::Keyboard::Key k) { return sf::Keyboard::isKeyPressed(k); };
@@ -36,6 +43,9 @@ void Player::updatePlayer() {
 	player.move(playerMovement);
 }
 
+void Player::updateLives(int lives) {
+	this->playerLivesText->updateOText("Lives: ", lives);
+}
 
 int Player::getX() {
 	return player.getPosition().x;

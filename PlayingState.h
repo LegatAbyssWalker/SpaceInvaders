@@ -82,6 +82,7 @@ class PlayingState : public State {
 
 		int shooter			 = 0;
 		int playerLives		 = 3;
+		int playerHighScore  = 0;
 		int playerScore		 = 0;
 		int shieldProtection = 5;
 

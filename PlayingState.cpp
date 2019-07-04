@@ -114,6 +114,7 @@ void PlayingState::update() {
 	/*------------------------------------------------------------------------------------------------------------------*/
 	this->player->updateBorderBounds();
 	this->player->updatePlayer();
+	this->player->updateLives(playerLives);
 
 	//Player bullet logic
 	sf::Vector2<float> pBulletMovement(0.f, 0.f);
