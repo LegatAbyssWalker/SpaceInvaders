@@ -13,7 +13,7 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 
 	//Text information
 	this->scoreText = new OStringText(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0 + 30, 25, spaceInvadersFont, sf::Color(255, 255, 255));
-	this->verisonText = new Text(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 30, 25, arialFont, "Version 0.7.0", sf::Color(255, 255, 0));
+	this->verisonText = new Text(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 30, 25, arialFont, "Version 0.8.0", sf::Color(255, 255, 0));
 
 
 	//Player information
