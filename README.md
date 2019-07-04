@@ -22,7 +22,9 @@ P.S., this is not a good version of the actual game and there are many bugs, but
 * Defined keywords in `MoreInfo.h` to be used across the entire program (Specifcally, texture, audio, font locations).
 
 # Current Ideas
-* None :)
+* Implimenting actual invader movements like in the original game. 
+* Implimenting invader movements without timings.
+* Finding and implimenting the IRL Space Invaders background song.
 
 # Bug Fixes
 * Fixed Text Issues.
