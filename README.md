@@ -8,18 +8,24 @@ P.S., this is not a good version of the actual game and there are many bugs, but
 * **SFML** Version **2.5.0** or **higher**!
 * **C++17** with a **supporting compiler**!
 
+# Version
+* Version 0.8.0 Released!
+
 # New Information
-* Implimented new Animation class in `Animation.h` and `Animation.cpp`. 
-* Implimented animation to the `Player` and `Invaders` classes!
-* Added new `Shield` in `PlayingState.cpp`. 
-* Added new Invaders using the new `Animation` class!
-* Defined textures and sound effects in `MoreInfo.h`.
+* Created new GUI text class called `OStringText`.
+  - Similar to `Text` class however it is able to update and change its text whenever needed to. 
+  
+* Implimented score counter in the `PlayingState` class.
+* Implimented lives counter in the `Player` class.
+* Implimented `ToggleKey` class (Creds: Hopson).
+* Implimented the Space Invaders font.
+* Defined keywords in `MoreInfo.h` to be used across the entire program (Specifcally, texture, audio, font locations).
 
 # Current Ideas
-* Implimenting more Animations!
-* Adding a Scoring and Lives System!
+* None :)
 
 # Bug Fixes
+* Fixed Text Issues.
 * Fixed Minor Bugs
 
 # More
