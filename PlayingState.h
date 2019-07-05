@@ -47,7 +47,7 @@ class PlayingState : public State {
 
 
 		//Class objects
-		Random<> random;
+		Random<> randomInvader, randomPoints;
 		FPSCounter fpsCounter;
 		Text* verisonText;
 		PlaySound playSound[5];
@@ -62,9 +62,6 @@ class PlayingState : public State {
 
 
 		//Variables and Booleans
-		const float invaderSpeed  = 2;
-		const float bulletSpeed   = 9;
-		const float ufoSpeed	  = 3;
 		unsigned int pBulletCount = 0;
 
 		const int initialInvaderX  = 340;
@@ -75,30 +72,31 @@ class PlayingState : public State {
 		const unsigned int invaderPoints = 20;
 
 		int rowCount    = 3;
-		int enemyCount  = 16;
+		int enemyCount  = 15;
 		int enemyKilled = 0;
 		int shieldCount = 4;
 		int soundCount  = 5;
 
-		int shooter			 = 0;
+		int invaderShooter	 = 0;
 		int playerLives		 = 3;
 		int playerHighScore  = 0;
 		int playerScore		 = 0;
-		int shieldProtection = 5;
+		int randomUFOPoints  = 0;
+		int shieldProtection = SHIELD_PROTECTION;
 
 		bool isMovingLeft   = false;
 		bool isMovingRight  = false;
 		bool isBulletFiring = false;
 
-		bool isInvaderLeft  = false;
+		bool isInvaderLeft  = true;
 		bool isInvaderRight = false;
 		bool isInvaderDown  = false;
 
 		//SFML
 		sf::Event sfEvent;
 		sf::Texture playerTexture, invaderTexture[3];
-		sf::Clock dtClock, invaderClock, invaderDownClock, pBulletClock, iBulletClock, iBulletClock2, ufoClock, ufoSoundClock, deathClock;
-		float	  dtTimer, invaderTimer, invaderDownTimer, pBulletTimer, iBulletTimer, iBulletTimer2, ufoTimer, ufoSoundTimer, deathTimer;
+		sf::Clock dtClock, invaderClock, invaderDownClock, iBulletClock, iBulletClock2, ufoClock, ufoSoundClock;
+		float	  dtTimer, invaderTimer, invaderDownTimer, iBulletTimer, iBulletTimer2, ufoTimer, ufoSoundTimer;
 };
 
 #endif

@@ -24,6 +24,24 @@ void PlayerBullet::moveTo(sf::Vector2<float> distance) {
 	bullet.move(distance);
 }
 
+void PlayerBullet::updateBullet(bool isBulletFiring, int bulletSpeed, int playerX, int playerY) {
+	//Border bounds
+	if (getY() <= SCREEN_HEIGHT * 0) { setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); bullet.move(sf::Vector2<float>(0, 0)); }
+
+
+	//Updating shooting
+	sf::Vector2<float> pBulletMovement(0.f, 0.f);
+	pBulletMovement.y -= bulletSpeed;
+
+	if (isBulletFiring) {
+		if (getX() == BULLET_ORIGIN) {
+			setBulletPos(sf::Vector2<float>(playerX, playerY));
+			playSound.setSound(shootingSE, 35, false);
+		}
+	}
+	moveTo(pBulletMovement);
+}
+
 int PlayerBullet::getX() {
 	return bullet.getPosition().x;
 }

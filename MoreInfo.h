@@ -1,13 +1,24 @@
 #ifndef MOREINFO_H
 #define MOREINFO_H
 
-
-#define SCREEN_WIDTH 1000
+//General
+#define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 900
+#define FRAMERATE_LIMIT 120
+
+//Variables
 #define GROUND_HEIGHT 800
-
 #define PLAYER_BORDER_SPEED 30
+#define BULLET_ORIGIN 12345
+#define INVADER_ORIGIN 10000
+#define SHIELD_ORIGIN 15000
 
+#define BULLET_SPEED 5.0
+#define INVADER_SPEED 2.0
+#define PLAYER_SPEED 2.0
+#define UFO_SPEED 3.0
+
+#define SHIELD_PROTECTION 10
 
 //Fonts
 #define arialFont "res/fonts/arial.ttf"

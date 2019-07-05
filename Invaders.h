@@ -14,7 +14,7 @@ class Invaders {
 		
 		void renderTo(sf::RenderWindow& window);
 		void setInvaderPos(sf::Vector2<float> newPos);
-		void update();
+		void update(int invaderSpeed);
 		void moveTo(sf::Vector2<float> distance);
 		int getX();
 		int getY();
@@ -26,6 +26,10 @@ class Invaders {
 
 		Animation animation;
 		float speed;
+
+		bool isMovingLeft  = true;
+		bool isMovingDown  = false;
+		bool isMovingRight = false;
 };
 
 #endif

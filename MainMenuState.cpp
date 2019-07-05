@@ -51,7 +51,6 @@ void MainMenuState::updateEvents() {
 		case sf::Event::MouseButtonPressed:
 			if (this->quitGameButton->isPressed() == true) { machine.quit(); }
 			if (this->startGameButton->isPressed() == true) { machine.run(machine.buildState<PlayingState>(machine, window, true)); }
-
 			break;
 		}
 	}

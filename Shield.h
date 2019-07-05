@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/System/Vector2.hpp"
 
+#include "MoreInfo.h"
 
 class Shield {
 	public:
@@ -19,7 +20,7 @@ class Shield {
 		int shieldProtectionNum();
 
 	private:
-		int shieldProtectionAccount = 5;
+		int shieldProtectionAccount = SHIELD_PROTECTION;
 
 		sf::Texture texture;
 		sf::Sprite shield;
