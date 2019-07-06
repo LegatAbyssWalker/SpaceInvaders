@@ -12,7 +12,7 @@ P.S., this is not a good version of the actual game and there are many bugs, but
 * Version 1.0 Released!
 
 # New Information with Current Version
-* Used a diffent for loop approach.
+* Used a different for loop approach.
   - Before _int x = 0; x < example.size(); x++_, after _auto &example : example_.
 * Redesigned the invader movements!
   - Timings are no longer used.
