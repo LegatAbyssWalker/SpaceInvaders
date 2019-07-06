@@ -8,26 +8,32 @@ P.S., this is not a good version of the actual game and there are many bugs, but
 * **SFML** Version **2.5.0** or **higher**!
 * **C++17** with a **supporting compiler**!
 
-# Version
-* Version 0.8.0 Released!
+# Current Version
+* Version 1.0 Released!
 
-# New Information
-* Created new GUI text class called `OStringText`.
-  - Similar to `Text` class however it is able to update and change its text whenever needed to. 
-  
-* Implimented score counter in the `PlayingState` class.
-* Implimented lives counter in the `Player` class.
-* Implimented `ToggleKey` class (Creds: Hopson).
-* Implimented the Space Invaders font.
-* Defined keywords in `MoreInfo.h` to be used across the entire program (Specifcally, texture, audio, font locations).
+# New Information with Current Version
+* Used a diffent for loop approach.
+  - Before _int x = 0; x < example.size(); x++_, after _auto &example : example_.
+* Redesigned the invader movements!
+  - Timings are no longer used.
+  - Using ticks for down movement.
+  - Invaders move down when they touch a wall.
+* Redesigned the invader shootings!
+  - Only one timer.
+  - Uses new _isInvaderDead()_ function to determine which invader can shoot.
+  - Faster shootings from the invaders.
+* Larger screen size.
+* Score and lives system.
+* Space Invaders font implimented.
+* Sprites now have a *ORIGIN* for easier detection.
+* Bullets now update to determine if they are on the screen or not.
+* No longer limited timings for bullet use! Can use bullet once the current bullet touches something.
+* Semi-accurate speeds for sprites.
 
 # Current Ideas
-* Implimenting actual invader movements like in the original game. 
-* Implimenting invader movements without timings.
 * Finding and implimenting the IRL Space Invaders background song.
 
 # Bug Fixes
-* Fixed Text Issues.
 * Fixed Minor Bugs
 
 # More
