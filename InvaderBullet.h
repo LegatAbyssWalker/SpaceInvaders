@@ -16,6 +16,8 @@ class InvaderBullet {
 		void renderTo(sf::RenderWindow& window);
 		void setBulletPos(sf::Vector2<float> newPos);
 		void moveTo(sf::Vector2<float> distance);
+		void updateBullet();
+
 		int getX();
 		int getY();
 		sf::FloatRect getGlobalBounds();

@@ -24,20 +24,21 @@ void Invaders::update(int invaderSpeed) {
 	animation.update();
 	invader.setTextureRect(animation.uvRect);
 
-
-	//Movements
-	/*sf::Vector2<float> invaderMovement(0.f, 0.f);
-	if (getX() <= SCREEN_WIDTH * 0) { isMovingLeft = false; isMovingRight = true; }
-	if (getX() >= SCREEN_WIDTH)		{ isMovingLeft = true; isMovingRight = false; }
-
-	if (isMovingLeft == false && isMovingRight == true) { invaderMovement.x += invaderSpeed; }
-	if (isMovingLeft == true && isMovingRight == false) { invaderMovement.x -= invaderSpeed; }
-
-	moveTo(invaderMovement);*/
+	//Updating death
+	if (getY() <= SCREEN_HEIGHT * 0) { setDead(); }
 }
 
 void Invaders::moveTo(sf::Vector2<float> distance) {
 	invader.move(distance);
+}
+
+void Invaders::setDead() {
+	isDead = true;
+}
+
+bool Invaders::isInvaderDead() {
+	if (isDead == true) { return true; }
+	return false;
 }
 
 int Invaders::getX() {

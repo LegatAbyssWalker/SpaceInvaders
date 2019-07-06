@@ -19,20 +19,22 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	//Player information
 	playerTexture.loadFromFile(playerT);
 	player = new Player(&playerTexture, sf::Vector2<unsigned>(1, 1), 0.3, 2.0f);
-	this->player->setPlayerPos(sf::Vector2<float>(SCREEN_WIDTH / 6, GROUND_HEIGHT));
+	this->player->setPlayerPos(sf::Vector2<float>(SCREEN_WIDTH / 10, GROUND_HEIGHT));
 	playerVector.push_back(this->player);
 	pBullet.setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN));
 
 
 	//Invader information
+	iBullet.setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN));
+
 	invaderTexture[0].loadFromFile(invaderT1);
 	invaderTexture[1].loadFromFile(invaderT2);
 	invaderTexture[2].loadFromFile(invaderT3);
 
 	for (int x = 0; x < enemyCount; x++) { 
-		if (x <= 4)				  { this->invaders[x] = new Invaders(&invaderTexture[0], sf::Vector2<unsigned>(2, 1), 1.0, 0.0f); }
-		else if (x > 4 && x <= 9) { this->invaders[x] = new Invaders(&invaderTexture[1], sf::Vector2<unsigned>(2, 1), 1.0, 0.0f); }
-		else if (x > 9)		      { this->invaders[x] = new Invaders(&invaderTexture[2], sf::Vector2<unsigned>(2, 1), 1.0, 0.0f); }
+		if (x <= 4)				  { this->invaders[x] = new Invaders(&invaderTexture[0], sf::Vector2<unsigned>(2, 1), 0.5, 0.0f); }
+		else if (x > 4 && x <= 9) { this->invaders[x] = new Invaders(&invaderTexture[1], sf::Vector2<unsigned>(2, 1), 0.5, 0.0f); }
+		else if (x > 9)		      { this->invaders[x] = new Invaders(&invaderTexture[2], sf::Vector2<unsigned>(2, 1), 0.5, 0.0f); }
 		this->invaderVector.push_back(this->invaders[x]); 
 	}
 	
@@ -85,10 +87,8 @@ PlayingState::~PlayingState() {
 }
 
 void PlayingState::updateKeyboardInputs(sf::Keyboard::Key key, bool isPressed) {
-	if (key == sf::Keyboard::Space) { isBulletFiring = isPressed; }
-	if (key == sf::Keyboard::R)		{ machine.run(machine.buildState<MainMenuState>(machine, window, true)); playSound[4].stopMusic(); }
-	if (key == sf::Keyboard::B)		{ pBullet.setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
-
+	if (key == sf::Keyboard::Space)  { isBulletFiring = isPressed; }
+	if (key == sf::Keyboard::Escape) { machine.run(machine.buildState<MainMenuState>(machine, window, true)); playSound[4].stopMusic(); }
 }
 
 void PlayingState::updateEvents() {
@@ -123,31 +123,42 @@ void PlayingState::update() {
 
 	/*-------------------------------------------------------------------------------------------------------------------*/
 	//Invader logic 
-	//Collision and Movements
-	for (int x = 0; x < invaderVector.size(); x++) {
+	//Collision and Movements 
+	for (auto &invader : invaderVector) {
 		//Movements
 		sf::Vector2<float> invaderMovement(0.f, 0.f);
-		if (invaderVector[x]->getX() <= SCREEN_WIDTH * 0) { isInvaderLeft = false; isInvaderRight = true; }
-		if (invaderVector[x]->getX() >= SCREEN_WIDTH)	  { isInvaderLeft = true; isInvaderRight = false; }
+		if (invader->getX() <= SCREEN_WIDTH * 0 + 40) { isInvaderLeft = false; isInvaderRight = true; isInvaderDown = true; }
+		if (invader->getX() >= SCREEN_WIDTH)		  { isInvaderLeft = true; isInvaderRight = false; isInvaderDown = true; }
 
 		if (isInvaderLeft == false && isInvaderRight == true) { invaderMovement.x += INVADER_SPEED; }
 		if (isInvaderLeft == true && isInvaderRight == false) { invaderMovement.x -= INVADER_SPEED; }
 
-		invaderVector[x]->moveTo(invaderMovement);
+		if (isInvaderDown == true) {
+			invaderDownTick++;
+			invaderMovement.y += INVADER_SPEED;
+			if (invaderDownTick >= 100) {
+				isInvaderDown = false;
+				invaderDownTick = 0;
+			}
+		}
 
-
-		this->invaders[x]->update(INVADER_SPEED);
+		if (invader->isInvaderDead() == false) {
+			invader->moveTo(invaderMovement);
+			invader->update(INVADER_SPEED);
+		}
 		
-		if (pBullet.collisionWithInvaders(invaderVector[x])) {
-			invaderVector[x]->setInvaderPos(sf::Vector2<float>(INVADER_ORIGIN, INVADER_ORIGIN));
+		if (pBullet.collisionWithInvaders(invader)) {
+			invader->setInvaderPos(sf::Vector2<float>(invader->getX(), invader->getY() - INVADER_ORIGIN));
 			pBullet.setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN));
-			playSound[1].setSound(invaderKilledSE, 35, false);
+			playSound[1].setSound(invaderKilledSE, 25, false);
 			playerScore += invaderPoints;
 			enemyKilled++;
 		}
 	}
 
 	//Shooting
+	iBullet.updateBullet();
+
 	sf::Vector2<float> iBulletMovement(0.f, 0.f);
 	iBulletMovement.y += BULLET_SPEED;
 
@@ -156,29 +167,30 @@ void PlayingState::update() {
 		invaderShooter = randomInvader.getInt(1, 15);
 
 		switch (invaderShooter) {
-			case 1:  if (this->invaders[0]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[0]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[0]->getX(),  this->invaders[0]->getY()));  } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 2:  if (this->invaders[1]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[1]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[1]->getX(),  this->invaders[1]->getY()));  } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 3:  if (this->invaders[2]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[2]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[2]->getX(),  this->invaders[2]->getY()));  } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 4:  if (this->invaders[3]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[3]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[3]->getX(),  this->invaders[3]->getY()));  } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 5:  if (this->invaders[4]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[4]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[4]->getX(),  this->invaders[4]->getY()));  } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 6:  if (this->invaders[5]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[5]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[5]->getX(),  this->invaders[5]->getY()));  } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 7:  if (this->invaders[6]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[6]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[6]->getX(),  this->invaders[6]->getY()));  } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 8:  if (this->invaders[7]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[7]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[7]->getX(),  this->invaders[7]->getY()));  } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 9:  if (this->invaders[8]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[8]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[8]->getX(),  this->invaders[8]->getY()));  } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 10: if (this->invaders[9]->getX()  >= SCREEN_WIDTH * 0 && this->invaders[9]->getX()  <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[9]->getX(),  this->invaders[9]->getY()));  } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 11: if (this->invaders[10]->getX() >= SCREEN_WIDTH * 0 && this->invaders[10]->getX() <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[10]->getX(), this->invaders[10]->getY())); } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 12: if (this->invaders[11]->getX() >= SCREEN_WIDTH * 0 && this->invaders[11]->getX() <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[11]->getX(), this->invaders[11]->getY())); } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 13: if (this->invaders[12]->getX() >= SCREEN_WIDTH * 0 && this->invaders[12]->getX() <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[12]->getX(), this->invaders[12]->getY())); } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 14: if (this->invaders[13]->getX() >= SCREEN_WIDTH * 0 && this->invaders[13]->getX() <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[13]->getX(), this->invaders[13]->getY())); } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
-			case 15: if (this->invaders[14]->getX() >= SCREEN_WIDTH * 0 && this->invaders[14]->getX() <= SCREEN_WIDTH) { iBulletTimer2 = iBulletClock2.getElapsedTime().asSeconds(); if (iBulletTimer2 > 0.000) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[14]->getX(), this->invaders[14]->getY())); } if (iBulletTimer2 > 2.000) { iBulletClock.restart().asSeconds(); iBulletClock2.restart().asSeconds(); } break; }
+			case 1:  if (this->invaders[0]->isInvaderDead()  == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[0]->getX(),  this->invaders[0]->getY()));  iBulletClock.restart().asSeconds(); } } else { invaderShooter = 2;  }
+			case 2:  if (this->invaders[1]->isInvaderDead()  == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[1]->getX(),  this->invaders[1]->getY()));  iBulletClock.restart().asSeconds(); } } else { invaderShooter = 3;  }
+			case 3:  if (this->invaders[2]->isInvaderDead()  == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[2]->getX(),  this->invaders[2]->getY()));  iBulletClock.restart().asSeconds(); } } else { invaderShooter = 4;  }
+			case 4:  if (this->invaders[3]->isInvaderDead()  == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[3]->getX(),  this->invaders[3]->getY()));  iBulletClock.restart().asSeconds(); } } else { invaderShooter = 5;  }
+			case 5:  if (this->invaders[4]->isInvaderDead()  == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[4]->getX(),  this->invaders[4]->getY()));  iBulletClock.restart().asSeconds(); } } else { invaderShooter = 6;  }
+			case 6:  if (this->invaders[5]->isInvaderDead()  == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[5]->getX(),  this->invaders[5]->getY()));  iBulletClock.restart().asSeconds(); } } else { invaderShooter = 7;  }
+			case 7:  if (this->invaders[6]->isInvaderDead()  == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[6]->getX(),  this->invaders[6]->getY()));  iBulletClock.restart().asSeconds(); } } else { invaderShooter = 8;  }
+			case 8:  if (this->invaders[7]->isInvaderDead()  == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[7]->getX(),  this->invaders[7]->getY()));  iBulletClock.restart().asSeconds(); } } else { invaderShooter = 9;  }
+			case 9:  if (this->invaders[8]->isInvaderDead()  == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[8]->getX(),  this->invaders[8]->getY()));  iBulletClock.restart().asSeconds(); } } else { invaderShooter = 10; }
+			case 10: if (this->invaders[9]->isInvaderDead()  == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[9]->getX(),  this->invaders[9]->getY()));  iBulletClock.restart().asSeconds(); } } else { invaderShooter = 11; }
+			case 11: if (this->invaders[10]->isInvaderDead() == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[10]->getX(), this->invaders[10]->getY())); iBulletClock.restart().asSeconds(); } } else { invaderShooter = 12; }
+			case 12: if (this->invaders[11]->isInvaderDead() == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[11]->getX(), this->invaders[11]->getY())); iBulletClock.restart().asSeconds(); } } else { invaderShooter = 13; }
+			case 13: if (this->invaders[12]->isInvaderDead() == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[12]->getX(), this->invaders[12]->getY())); iBulletClock.restart().asSeconds(); } } else { invaderShooter = 14; }
+			case 14: if (this->invaders[13]->isInvaderDead() == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[13]->getX(), this->invaders[13]->getY())); iBulletClock.restart().asSeconds(); } } else { invaderShooter = 15; }
+			case 15: if (this->invaders[14]->isInvaderDead() == false) { if (iBullet.getX() == BULLET_ORIGIN) { iBullet.setBulletPos(sf::Vector2<float>(this->invaders[14]->getX(), this->invaders[14]->getY())); iBulletClock.restart().asSeconds(); } } else { invaderShooter = 1;  }
 		}
 	}
 
 	iBullet.moveTo(iBulletMovement);
 
-	for (int x = 0; x < playerVector.size(); x++) {
-		if (iBullet.collisionWithPlayer(playerVector[x])) {
+	for (auto &player : playerVector) {
+		if (iBullet.collisionWithPlayer(player)) {
 			iBullet.setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN));
+			player->setPlayerPos(sf::Vector2<float>(SCREEN_WIDTH / 10, GROUND_HEIGHT));
 			playSound[2].setSound(explosionSE, 20, false);
 			playerLives--;
 		}
@@ -186,19 +198,19 @@ void PlayingState::update() {
 
 	/*-------------------------------------------------------------------------------------------------------------------*/
 	//Shield logic
-	for (int x = 0; x < shieldVector.size(); x++) {
+	for (auto &shield : shieldVector) {
 		//Collision with player bullets
-		if (pBullet.collisionWithShield(shieldVector[x]) || iBullet.collisionWithShield(shieldVector[x])) {
-			shieldVector[x]->shieldProtection(1);
+		if (pBullet.collisionWithShield(shield) || iBullet.collisionWithShield(shield)) {
+			shield->shieldProtection(1);
 
 			//Collision with player bullets
-			if (pBullet.collisionWithShield(shieldVector[x])) { pBullet.setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
+			if (pBullet.collisionWithShield(shield)) { pBullet.setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
 
 			//Collision with ivnader bullets
 			else { iBullet.setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
 
 			//Checking for shield damage
-			if (shieldVector[x]->shieldProtectionNum() <= 0) { shieldVector[x]->setShieldPos(sf::Vector2<float>(SHIELD_ORIGIN, SHIELD_ORIGIN)); }
+			if (shield->shieldProtectionNum() <= 0) { shield->setShieldPos(sf::Vector2<float>(SHIELD_ORIGIN, SHIELD_ORIGIN)); }
 		}
 	}
 
@@ -224,9 +236,9 @@ void PlayingState::update() {
 	ufo.moveTo(ufoMovement);
 
 	//UFO collision
-	for (int x = 0; x < ufoVector.size(); x++) {
-		if (pBullet.collisionWithUFO(ufoVector[x])) {
-			ufoVector[x]->setUFOPos(sf::Vector2<float>(SCREEN_WIDTH + 40, SCREEN_HEIGHT * 0 + 100));
+	for (auto &ufo : ufoVector) {
+		if (pBullet.collisionWithUFO(ufo)) {
+			ufo->setUFOPos(sf::Vector2<float>(SCREEN_WIDTH + 40, SCREEN_HEIGHT * 0 + 100));
 			ufoClock.restart().asSeconds();
 			pBullet.setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN));
 			randomUFOPoints = randomPoints.getInt(100, 500);
@@ -239,7 +251,7 @@ void PlayingState::update() {
 	/*-------------------------------------------------------------------------------------------------------------------*/
 	//Win or Lose
 	if (enemyKilled == enemyCount) { machine.run(machine.buildState<WinMenuState>(machine, window, true)); playSound[4].stopMusic(); }
-	if (playerLives <= 0) { machine.run(machine.buildState<LoseMenuState>(machine, window, true)); playSound[4].stopMusic(); }
+	if (playerLives <= 0) { machine.run(machine.buildState<LoseMenuState>(machine, window, true)); playSound[4].stopMusic(); playerScore = 0; }
 
 }
 
@@ -256,8 +268,8 @@ void PlayingState::render() {
 	iBullet.renderTo(window);
 	ufo.renderTo(window);
 
-	for (int x = 0; x < invaderVector.size(); x++) { invaderVector[x]->renderTo(window); }
-	for (int x = 0; x < shieldVector.size(); x++)  { shieldVector[x]->renderTo(window); }
+	for (auto &invader : invaderVector) { invader->renderTo(window); }
+	for (auto &shield : shieldVector) { shield->renderTo(window); }
 
 
 	window.display();

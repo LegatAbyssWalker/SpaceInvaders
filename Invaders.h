@@ -16,6 +16,10 @@ class Invaders {
 		void setInvaderPos(sf::Vector2<float> newPos);
 		void update(int invaderSpeed);
 		void moveTo(sf::Vector2<float> distance);
+		
+		void setDead();
+		bool isInvaderDead();
+
 		int getX();
 		int getY();
 		sf::FloatRect getGlobalBounds();
@@ -26,6 +30,8 @@ class Invaders {
 
 		Animation animation;
 		float speed;
+
+		bool isDead = false;
 
 		bool isMovingLeft  = true;
 		bool isMovingDown  = false;

@@ -54,7 +54,7 @@ class PlayingState : public State {
 		OStringText* scoreText;
 
 		Player* player;
-		Invaders* invaders[15];
+		Invaders* invaders[18];
 		PlayerBullet pBullet;
 		InvaderBullet iBullet;
 		Shield shield[4];
@@ -64,11 +64,9 @@ class PlayingState : public State {
 		//Variables and Booleans
 		unsigned int pBulletCount = 0;
 
-		const int initialInvaderX  = 340;
-		int changedInvaderX		   = 340;
-		const int invaderInEachRow = 5;
-
-		const unsigned int ufoPoints	 = 100;
+		const int initialInvaderX		 = 340;
+		int changedInvaderX				 = 340;
+		const int invaderInEachRow		 = 5;
 		const unsigned int invaderPoints = 20;
 
 		int rowCount    = 3;
@@ -79,7 +77,6 @@ class PlayingState : public State {
 
 		int invaderShooter	 = 0;
 		int playerLives		 = 3;
-		int playerHighScore  = 0;
 		int playerScore		 = 0;
 		int randomUFOPoints  = 0;
 		int shieldProtection = SHIELD_PROTECTION;
@@ -91,6 +88,7 @@ class PlayingState : public State {
 		bool isInvaderLeft  = true;
 		bool isInvaderRight = false;
 		bool isInvaderDown  = false;
+		int invaderDownTick = 0;
 
 		//SFML
 		sf::Event sfEvent;

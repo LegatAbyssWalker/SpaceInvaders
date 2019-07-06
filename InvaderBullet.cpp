@@ -24,6 +24,12 @@ void InvaderBullet::moveTo(sf::Vector2<float> distance) {
 	bullet.move(distance);
 }
 
+void InvaderBullet::updateBullet() {
+	if (getY() >= SCREEN_HEIGHT)	 { setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
+	if (getY() <= SCREEN_HEIGHT * 0) { setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
+
+}
+
 int InvaderBullet::getX() {
 	return bullet.getPosition().x;
 }

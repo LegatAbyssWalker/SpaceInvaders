@@ -18,7 +18,7 @@ class Player {
 		void setPlayerPos(sf::Vector2<float> newPos);
 		void updatePlayer();
 		void updateLives(int lives);
-		
+
 		int getX();
 		int getY();
 		void updateBorderBounds();
