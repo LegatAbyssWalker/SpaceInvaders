@@ -32,6 +32,10 @@ P.S., this is not a good version of the actual game and there are many bugs, but
 
 # Current Ideas
 * Finding and implimenting the IRL Space Invaders background song.
+* Different point system for each invader.
+* Add more flexibility in invader management.
+* Record of the high score.
+* Shields having accurate destruction as in the original game.
 
 # Bug Fixes
 * Fixed Minor Bugs
