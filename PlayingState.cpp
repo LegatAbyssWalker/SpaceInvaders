@@ -15,7 +15,6 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	this->scoreText = new OStringText(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0 + 30, 25, spaceInvadersFont, sf::Color(255, 255, 255));
 	this->verisonText = new Text(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 30, 25, arialFont, "Version 1.0", sf::Color(255, 255, 0));
 
-
 	//Player information
 	playerTexture.loadFromFile(playerT);
 	player = new Player(&playerTexture, sf::Vector2<unsigned>(1, 1), 0.3, 2.0f);
