@@ -25,7 +25,7 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 
 	//Invader information
 	iBullet.setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN));
-
+		
 	invaderTexture[0].loadFromFile(invaderT1);
 	invaderTexture[1].loadFromFile(invaderT2);
 	invaderTexture[2].loadFromFile(invaderT3);
