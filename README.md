@@ -10,7 +10,7 @@
 # Current Version
 * Version 1.2
 
-# New Information with Current Version
+# New Information on Current Version
 * Used unique pointers for the `Player` and `Invaders` class.
 * `MainMenuState` class objects `Text` and `Buttons` are now no longer pointers but simple objects.
 * Semi-Accurate sprite speeds to the original game.
