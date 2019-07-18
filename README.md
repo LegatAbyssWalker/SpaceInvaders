@@ -1,7 +1,6 @@
 # SpaceInvaders
-A recreation of _Space Invaders_ in C++/SFML. 
-Consisting of Aliens, UFO's, Player, Sounds, States, and more! Enjoy!
-P.S., this is not a good version of the actual game and there are many bugs, but this is at least a good start!
+* A recreation of _Space Invaders_ in C++/SFML. 
+* Recreated by David A.K.A. LegatAbyssWalker
 
 
 # Dependancies
@@ -9,36 +8,30 @@ P.S., this is not a good version of the actual game and there are many bugs, but
 * **C++17** with a **supporting compiler**!
 
 # Current Version
-* Version 1.0 Released!
+* Version 1.2
 
 # New Information with Current Version
-* Used a different for loop approach.
-  - Before _int x = 0; x < example.size(); x++_, after _auto &example : example_.
-* Redesigned the invader movements!
-  - Timings are no longer used.
-  - Using ticks for down movement.
-  - Invaders move down when they touch a wall.
-* Redesigned the invader shootings!
-  - Only one timer.
-  - Uses new _isInvaderDead()_ function to determine which invader can shoot.
-  - Faster shootings from the invaders.
-* Larger screen size.
-* Score and lives system.
-* Space Invaders font implimented.
-* Sprites now have a *ORIGIN* for easier detection.
-* Bullets now update to determine if they are on the screen or not.
-* No longer limited timings for bullet use! Can use bullet once the current bullet touches something.
-* Semi-accurate speeds for sprites.
+* Used unique pointers for the `Player` and `Invaders` class.
+* `MainMenuState` class objects `Text` and `Buttons` are now no longer pointers but simple objects.
+* `Semi-Accurate sprite speeds to the original game.
+* Better buttons style.
+* Exact sounds to the original _Space Invaders_ game.
+* Decreased the invader shooting code in `PlayingState.cpp` to around 10 lines of code using if statements and for loops.
+* UFO's now give random points.
+* Points are kept after winning game, however the points are then removed when you enter the _Main Menu_ or you quit the game.
+* Better invader management using for loops.  
+* Removed the `WinMenuState` and `LoseMenuState`. 
+* Invaders change speed and song when there is now only one invader left on screen.
+* Changed definition names in `MoreInfo.h`. 
+* Changed sound names in the _res/souds/..._ folder. 
+* Overall more organized code. 
 
 # Current Ideas
-* Finding and implimenting the IRL Space Invaders background song.
-* Different point system for each invader.
-* Add more flexibility in invader management.
-* Record of the high score.
-* Shields having accurate destruction as in the original game.
+* None.
 
 # Bug Fixes
-* Fixed Minor Bugs
+* UFO now leaves the screen entirely.
+* Sounds are now only playing whenever needed to.
 
 # More
 * Youtube Channel                » www.YouTube.com/LegitMegaWalls-52
