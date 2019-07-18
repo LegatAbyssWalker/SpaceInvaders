@@ -23,8 +23,7 @@ add_executable(Space ./UFO.cpp
 ./Shield.cpp
 ./Animation.cpp
 ./OStringText.cpp
-./ToggleKey.cpp
-./UFO.cpp)
+./ToggleKey.cpp)
 target_link_libraries(Space sfml-graphics sfml-audio)
 
 file(COPY res/ DESTINATION ${CMAKE_BINARY_DIR}/res)
