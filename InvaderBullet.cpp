@@ -3,13 +3,11 @@
 #include "MoreInfo.h"
 
 
-InvaderBullet::InvaderBullet() {
-	texture.loadFromFile(bulletT);
-	sf::Vector2<unsigned> individualCharacter = texture.getSize();
-	
-	bullet.setTexture(texture);
-	bullet.setTextureRect(sf::IntRect(individualCharacter.x * 0, individualCharacter.y * 0, individualCharacter.x, individualCharacter.y));
-	bullet.setOrigin(individualCharacter.x / 2, individualCharacter.y / 2);
+InvaderBullet::InvaderBullet(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float switchTime, float speed)
+	: animation(texture, imageCount, switchTime) {
+
+	bullet.setTexture(*texture);
+	bullet.setOrigin(bullet.getGlobalBounds().width / 2, bullet.getGlobalBounds().height / 2);
 }
 
 void InvaderBullet::renderTo(sf::RenderWindow & window) {
@@ -25,8 +23,10 @@ void InvaderBullet::moveTo(sf::Vector2<float> distance) {
 }
 
 void InvaderBullet::updateBullet() {
-	if (getY() >= SCREEN_HEIGHT)	 { setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
-	if (getY() <= SCREEN_HEIGHT * 0) { setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
+	animation.update();
+	bullet.setTextureRect(animation.uvRect);
+
+	if (getY() >= GROUND_HEIGHT + 10) { setBulletPos(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
 
 }
 
@@ -42,15 +42,15 @@ sf::FloatRect InvaderBullet::getGlobalBounds() {
 	return bullet.getGlobalBounds();
 }
 
-bool InvaderBullet::collisionWithPlayer(Player* player) {
-	if (getGlobalBounds().intersects(player->getGlobalBounds())) {
+bool InvaderBullet::collisionWithPlayer(const Player& player) {
+	if (getGlobalBounds().intersects(player.getGlobalBounds())) {
 		return true;
 	}
 	return false;
 }
 
-bool InvaderBullet::collisionWithShield(Shield* shield) {
-	if (getGlobalBounds().intersects(shield->getGlobalBounds())) {
+bool InvaderBullet::collisionWithShield(const Shield& shield) {
+	if (getGlobalBounds().intersects(shield.getGlobalBounds())) {
 		return true;
 	}
 	return false;

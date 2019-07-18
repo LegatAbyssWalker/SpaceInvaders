@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/System/Vector2.hpp"
 
+#include "Animation.h"
 #include "Player.h"
 #include "Shield.h"
 
@@ -11,7 +12,7 @@
 
 class InvaderBullet {
 	public:
-		InvaderBullet();
+		InvaderBullet(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float switchTime, float speed);
 		
 		void renderTo(sf::RenderWindow& window);
 		void setBulletPos(sf::Vector2<float> newPos);
@@ -23,10 +24,12 @@ class InvaderBullet {
 		sf::FloatRect getGlobalBounds();
 
 		//Collision
-		bool collisionWithPlayer(Player* player);
-		bool collisionWithShield(Shield* shield); 
+		bool collisionWithPlayer(const Player& player);
+		bool collisionWithShield(const Shield& shield);
 
 	private:
+		Animation animation;
+	
 		sf::Texture texture;
 		sf::Sprite bullet;
 };

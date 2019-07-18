@@ -3,7 +3,7 @@
 #include "MoreInfo.h"
 
 UFO::UFO() {
-	texture.loadFromFile(UFOT);
+	texture.loadFromFile(UFO_T);
 	sf::Vector2<unsigned> UFOChar = texture.getSize();
 	UFOChar.x /= 1;
 	UFOChar.y /= 1;
@@ -34,7 +34,7 @@ int UFO::getY() {
 	return ufo.getPosition().y; 
 }
 
-sf::FloatRect UFO::getGlobalBounds() {
+sf::FloatRect UFO::getGlobalBounds() const {
 	return ufo.getGlobalBounds();
 }
 

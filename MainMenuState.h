@@ -27,14 +27,21 @@ class MainMenuState : public State {
 		void render();
 
 	private:
+		//Variables
+		int invaderYPosAdd = 0;
+
+
+
 		//Class objects
 		FPSCounter fpsCounter;
-		Button* startGameButton;
-		Button* quitGameButton;
-		Text* titleText;
+		Button startGameButton, quitGameButton;
+		Text titleText, ufoText, t1Text, t2Text, t3Text;
 
 		//SFML
 		sf::Event sfEvent;
+
+		sf::Texture invaderTexture[3], ufoTexture;
+		sf::Sprite invaders[3], ufo;
 };
 
 #endif

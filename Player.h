@@ -7,6 +7,7 @@
 #include "Animation.h"
 #include "ToggleKey.h"
 #include "OStringText.h"
+#include "Invaders.h"
 
 #include <iostream>
 
@@ -22,7 +23,9 @@ class Player {
 		int getX();
 		int getY();
 		void updateBorderBounds();
-		sf::FloatRect getGlobalBounds();
+		sf::FloatRect getGlobalBounds() const;
+
+		bool collisionWithInvaders(Invaders&  invaders);
 
 	private:
 		OStringText* playerLivesText;

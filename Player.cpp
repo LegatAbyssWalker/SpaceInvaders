@@ -15,7 +15,7 @@ Player::Player(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float swi
 
 
 
-	playerLivesText = new OStringText(SCREEN_WIDTH * 0 + 100, SCREEN_HEIGHT - 50, 25, spaceInvadersFont, sf::Color(255, 255, 255));
+	playerLivesText = new OStringText(SCREEN_WIDTH * 0 + 100, SCREEN_HEIGHT - 50, 25, SPACEINVADERS_FONT, sf::Color(255, 255, 255));
 }
 
 void Player::renderTo(sf::RenderWindow& window) {
@@ -60,6 +60,13 @@ void Player::updateBorderBounds() {
 	if (getX() >= SCREEN_WIDTH)	    { setPlayerPos(sf::Vector2<float>(getX() - PLAYER_BORDER_SPEED, getY())); } //Right Side
 }
 
-sf::FloatRect Player::getGlobalBounds() {
+sf::FloatRect Player::getGlobalBounds() const {
 	return player.getGlobalBounds();
+}
+
+bool Player::collisionWithInvaders(Invaders& invaders) {
+	if (getGlobalBounds().intersects(invaders.getGlobalBounds())) {
+		return true;
+	}
+	return false;
 }

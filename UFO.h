@@ -13,7 +13,7 @@ class UFO {
 		void moveTo(sf::Vector2<float> distance);
 		int getX();
 		int getY();
-		sf::FloatRect getGlobalBounds();
+		sf::FloatRect getGlobalBounds() const;
 		bool isOnScreen(sf::RenderWindow& window);
 
 	private:

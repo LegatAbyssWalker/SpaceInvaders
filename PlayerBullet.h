@@ -23,12 +23,12 @@ class PlayerBullet {
 
 		int getX();
 		int getY();
-		sf::FloatRect getGlobalBounds();
+		sf::FloatRect getGlobalBounds() const;
 
 		//Collisions
-		bool collisionWithInvaders(Invaders* invaders);
-		bool collisionWithShield(Shield* shield);
-		bool collisionWithUFO(UFO* ufo);
+		bool collisionWithInvaders(Invaders& invaders);
+		bool collisionWithShield(Shield& shield);
+		bool collisionWithUFO(UFO& ufo);
 
 	private:
 		PlaySound playSound;

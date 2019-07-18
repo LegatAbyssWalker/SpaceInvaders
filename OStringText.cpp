@@ -24,3 +24,7 @@ void OStringText::updateOText(std::string text, int variable) {
 void OStringText::renderTo(sf::RenderWindow& window) {
 	window.draw(text);
 }
+
+void OStringText::changePosition(float posX, float posY) {
+	this->text.setPosition(posX, posY);
+}

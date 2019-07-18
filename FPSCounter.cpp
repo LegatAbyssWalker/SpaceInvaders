@@ -3,7 +3,7 @@
 #include "MoreInfo.h"
 
 FPSCounter::FPSCounter() {
-	gameFont.loadFromFile(arialFont);
+	gameFont.loadFromFile(ARIAL_FONT);
 	framerateCounter.setFont(gameFont);
 	framerateCounter.setFillColor(sf::Color(255, 255, 0));
 	framerateCounter.setCharacterSize(30);

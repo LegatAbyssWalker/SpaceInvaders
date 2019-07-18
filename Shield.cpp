@@ -3,7 +3,7 @@
 #include "MoreInfo.h"
 
 Shield::Shield() {
-	texture.loadFromFile(shieldT);
+	texture.loadFromFile(SHIELD_T);
 	sf::Vector2<unsigned> shieldChar = texture.getSize();
 
 	shield.setTexture(texture);
@@ -27,7 +27,7 @@ int Shield::getY() {
 	return shield.getPosition().y;
 }
 
-sf::FloatRect Shield::getGlobalBounds() {
+sf::FloatRect Shield::getGlobalBounds() const {
 	return shield.getGlobalBounds();
 }
 

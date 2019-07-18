@@ -9,12 +9,13 @@
 class Shield {
 	public:
 		Shield();
+		Shield(Shield&) = delete;
 		
 		void renderTo(sf::RenderWindow& window);
 		void setShieldPos(sf::Vector2<float> newPos);
 		int getX();
 		int getY();
-		sf::FloatRect getGlobalBounds();
+		sf::FloatRect getGlobalBounds() const;
 
 		void shieldProtection(int num);
 		int shieldProtectionNum();

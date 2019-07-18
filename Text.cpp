@@ -16,3 +16,7 @@ Text::Text(float posX, float posY, unsigned int characterSize, std::string fontF
 void Text::renderTo(sf::RenderWindow& window) {
 	window.draw(text);
 }
+
+void Text::changePosition(float posX, float posY) {
+	this->text.setPosition(posX, posY);
+}

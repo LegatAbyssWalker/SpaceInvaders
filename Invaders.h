@@ -5,7 +5,6 @@
 #include "SFML/System/Vector2.hpp"
 
 #include "Animation.h"
-
 #include <iostream>
 
 class Invaders {
@@ -14,22 +13,33 @@ class Invaders {
 		
 		void renderTo(sf::RenderWindow& window);
 		void setInvaderPos(sf::Vector2<float> newPos);
-		void update(int invaderSpeed);
+		void update();
 		void moveTo(sf::Vector2<float> distance);
 		
+		void setType(std::string type);
+		int returnPointType() const;
+
 		void setDead();
 		bool isInvaderDead();
 
 		int getX();
 		int getY();
-		sf::FloatRect getGlobalBounds();
+		sf::FloatRect getGlobalBounds() const;
+
+
 
 	private:
-		sf::Texture invaderTexture;
+		//Explosion information
+		const unsigned int crab	   = 20;
+		const unsigned int octopus = 10;
+		const unsigned int squid   = 30;
+
+		std::string type;
+
+		sf::Texture invaderTexture, explosionTexture;
 		sf::Sprite invader;
 
 		Animation animation;
-		float speed;
 
 		bool isDead = false;
 

@@ -12,6 +12,8 @@ class OStringText {
 		void updateOText(std::string text, int variable);
 		void renderTo(sf::RenderWindow& window);
 
+		void changePosition(float posX, float posY);
+
 	private:
 		std::ostringstream ssText;
 		unsigned int characterSize;
