@@ -13,7 +13,7 @@
 # New Information with Current Version
 * Used unique pointers for the `Player` and `Invaders` class.
 * `MainMenuState` class objects `Text` and `Buttons` are now no longer pointers but simple objects.
-* `Semi-Accurate sprite speeds to the original game.
+* Semi-Accurate sprite speeds to the original game.
 * Better buttons style.
 * Exact sounds to the original _Space Invaders_ game.
 * Decreased the invader shooting code in `PlayingState.cpp` to around 10 lines of code using if statements and for loops.
