@@ -36,7 +36,11 @@
 * UFO now leaves the screen entirely.
 * Sounds are now only playing whenever needed to.
 
-# More
+# Credits
+* Kiroma » https://github.com/kiroma
+  - Helping me with a lot of the code and teaching me the rights from wrongs.
+
+# Media
 * Youtube Channel                » www.YouTube.com/LegitMegaWalls-52
 * Youtube Video of Creating Game » https://www.youtube.com/watch?v=aUVq3uuxbTM&t=20s
 * Github                         » https://github.com/LegatLastAbyssWalker
