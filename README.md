@@ -25,7 +25,7 @@
 * Changed definition names in `MoreInfo.h`. 
 * Changed sound names in the _res/souds/..._ folder. 
 * **There are now exactly 55 invader**
-  - If you want to include more, just add another for for loop if there is a new row
+  - If you want to include more, just add another for loop if there is a new row
   - Create new if statement to determine invader type.
 * Overall more organized code. 
 
