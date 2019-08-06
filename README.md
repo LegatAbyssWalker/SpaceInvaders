@@ -23,7 +23,7 @@
 * Removed the `WinMenuState` and `LoseMenuState`. 
 * Invaders change speed and song when there is now only one invader left on screen.
 * Changed definition names in `MoreInfo.h`. 
-* Changed sound names in the _res/souds/..._ folder. 
+* Changed sound names in the _res/sounds/..._ folder. 
 * **There are now exactly 55 invader**
   - If you want to include more, just add another for loop if there is a new row
   - Create new if statement to determine invader type.
