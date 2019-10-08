@@ -5,10 +5,8 @@
 
 class PlaySound {
 	public:
-		PlaySound();
-		
-		void setSound(std::string soundName, unsigned int volume, bool loopSound);
-		void setMusic(std::string musicName, unsigned int volume, bool loopMusic);
+		void setSound(std::string soundName, size_t volume, bool loopSound);
+		void setMusic(std::string musicName, size_t volume, bool loopMusic);
 		void stopSound();
 		void stopMusic();
 

@@ -1,24 +1,29 @@
 #ifndef UFO_H
 #define UFO_H
 
-#include "SFML/Graphics.hpp"
-#include "SFML/System/Vector2.hpp"
+#include "State.h"
+#include "Entity.h"
+#include "Random.h"
+#include "PlaySound.h"
 
-class UFO {
+#include <iostream>
+#include <chrono>
+
+class UFO : public Entity {
 	public:
-		UFO();
-		
-		void renderTo(sf::RenderWindow& window);
-		void setUFOPos(sf::Vector2<float> newPos);
-		void moveTo(sf::Vector2<float> distance);
-		int getX();
-		int getY();
-		sf::FloatRect getGlobalBounds() const;
-		bool isOnScreen(sf::RenderWindow& window);
+		UFO(sf::Texture& texture, int speed);
+
+		void update(size_t timeNumber);
+		void ufoCollisionSound();
+		bool isOnScreen();
+
 
 	private:
-		sf::Texture texture;
-		sf::Sprite ufo;
+		PlaySound ufoAppear;
+		bool left = true;
+		int speed;
+
+		std::chrono::steady_clock::time_point tp = std::chrono::steady_clock::now();
 };
 
 #endif

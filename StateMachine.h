@@ -8,11 +8,10 @@
 
 class State;
 
-
 class StateMachine {
 	public:
 		StateMachine();
-
+		
 		void run(std::unique_ptr<State> state);
 
 		void nextState();

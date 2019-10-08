@@ -2,10 +2,10 @@
 
 
 
-State::State(StateMachine& machine, sf::RenderWindow& window, bool replace) 
+State::State(StateMachine& machine, sf::RenderWindow& window, bool replace)
 	: machine{ machine }
 	, window{ window }
-	, replacing{ replace }{
+	, replacing{ replace } {
 }
 
 std::unique_ptr<State> State::nextState() {

@@ -4,36 +4,29 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/System/Vector2.hpp"
 
+#include "Entity.h"
 #include "Animation.h"
-#include "ToggleKey.h"
 #include "OStringText.h"
-#include "Invaders.h"
 
 #include <iostream>
+#include <chrono>
 
-class Player {
+class Player : public Entity {
 	public:
-		Player(sf::Texture* texture, sf::Vector2<unsigned> imageCount, float switchTime, float speed);
-		
-		void renderTo(sf::RenderWindow& window);
-		void setPlayerPos(sf::Vector2<float> newPos);
+		Player(sf::Texture& texture, float speed);
+
+		void keyboardInputs(sf::Keyboard::Key key, bool isPressed);
 		void updatePlayer();
 		void updateLives(int lives);
-
-		int getX();
-		int getY();
 		void updateBorderBounds();
-		sf::FloatRect getGlobalBounds() const;
 
-		bool collisionWithInvaders(Invaders&  invaders);
+		void extraRenderTo(sf::RenderWindow& window);
 
 	private:
-		OStringText* playerLivesText;
-
-		Animation animation;
+		OStringText playerLivesText;
 		float speed;
 
-		sf::Sprite player;
+		bool left, right;
 };
 
 #endif

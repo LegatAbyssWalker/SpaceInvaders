@@ -1,41 +1,23 @@
 #include "Shield.h"
 
-#include "MoreInfo.h"
 
-Shield::Shield() {
-	texture.loadFromFile(SHIELD_T);
-	sf::Vector2<unsigned> shieldChar = texture.getSize();
+Shield::Shield(sf::Texture& texture)
+	: Entity(texture) {
 
-	shield.setTexture(texture);
-	shield.setTextureRect(sf::IntRect(shieldChar.x * 0, shieldChar.y * 0, shieldChar.x, shieldChar.y));
-	shield.setOrigin(shieldChar.x / 2, shieldChar.y);
+	entity.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
 }
 
-void Shield::renderTo(sf::RenderWindow& window) {
-	window.draw(shield);
+void Shield::shieldProtection() {
+	shieldProtectionAccount--;
 }
 
-void Shield::setShieldPos(sf::Vector2<float> newPos) {
-	shield.setPosition(newPos);
-}
-
-int Shield::getX() {
-	return shield.getPosition().x;
-}
-
-int Shield::getY() {
-	return shield.getPosition().y;
-}
-
-sf::FloatRect Shield::getGlobalBounds() const {
-	return shield.getGlobalBounds();
-}
-
-void Shield::shieldProtection(int num) {
-	shieldProtectionAccount -= num;
-}
-
-int Shield::shieldProtectionNum() {
+int Shield::shieldProtectionNumber() {
 	return shieldProtectionAccount;
 }
 
+bool Shield::isOnScreen() {
+	if (getX() <= SCREEN_WIDTH && getX() >= 0) {
+		return true;
+	}
+	return false;
+}

@@ -1,12 +1,6 @@
 #include "PlaySound.h"
 
-
-
-PlaySound::PlaySound() {
-	//
-}
-
-void PlaySound::setSound(std::string soundName, unsigned int volume, bool loopSound) {
+void PlaySound::setSound(std::string soundName, size_t volume, bool loopSound) {
 	soundBuffer.loadFromFile(soundName);
 	sound.setBuffer(soundBuffer);
 
@@ -16,7 +10,7 @@ void PlaySound::setSound(std::string soundName, unsigned int volume, bool loopSo
 	sound.play();
 }
 
-void PlaySound::setMusic(std::string musicName, unsigned int volume, bool loopMusic) {
+void PlaySound::setMusic(std::string musicName, size_t volume, bool loopMusic) {
 	music.openFromFile(musicName);
 
 	music.setVolume(volume);

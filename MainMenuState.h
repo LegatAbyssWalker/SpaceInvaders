@@ -1,13 +1,6 @@
 #ifndef MAINMENUSTATE_H
 #define MAINMENUSTATE_H
 
-#include "SFML/Graphics.hpp"
-#include "SFML/System.hpp"
-#include "SFML/Window.hpp"
-#include "SFML/Network.hpp"
-#include "SFML/Audio.hpp"
-#include "SFML/System/Vector2.hpp"
-
 #include "State.h"
 class StateMachine;
 
@@ -16,11 +9,12 @@ class StateMachine;
 #include "Text.h"
 #include "MoreInfo.h"
 
+#include <array>
+#include <iostream>
 
 class MainMenuState : public State {
 	public:
 		MainMenuState(StateMachine& machine, sf::RenderWindow& window, bool replace = true);
-		~MainMenuState();
 
 		void updateEvents();
 		void update();
@@ -30,8 +24,6 @@ class MainMenuState : public State {
 		//Variables
 		int invaderYPosAdd = 0;
 
-
-
 		//Class objects
 		FPSCounter fpsCounter;
 		Button startGameButton, quitGameButton;
@@ -40,8 +32,11 @@ class MainMenuState : public State {
 		//SFML
 		sf::Event sfEvent;
 
-		sf::Texture invaderTexture[3], ufoTexture;
-		sf::Sprite invaders[3], ufo;
+		std::array<sf::Texture, 3> invaderTexture;
+		sf::Texture ufoTexture;
+		
+		std::array<sf::Sprite, 3> invaders;
+		sf::Sprite ufo;
 };
 
 #endif

@@ -14,13 +14,13 @@ class StateMachine;
 MainMenuState::MainMenuState(StateMachine& machine, sf::RenderWindow& window, bool replace)
 	: State{ machine, window, replace },
 	//Text
-	titleText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4 + 20, 50, SPACEINVADERS_FONT, "Space Invaders", sf::Color(255, 255, 255)), 
+	titleText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4 + 20, 50, SPACEINVADERS_FONT, "Space Invaders", sf::Color(255, 255, 255)),
 	ufoText(SCREEN_WIDTH / 2 + 50, SCREEN_HEIGHT / 2.5 - 040, 20, SPACEINVADERS_FONT, " = ? MYSTERY", sf::Color(255, 255, 255)),
 	t1Text(SCREEN_WIDTH / 2 + 50, SCREEN_HEIGHT / 2.5 + 040, 20, SPACEINVADERS_FONT, " = 30 Points", sf::Color(255, 255, 255)),
 	t2Text(SCREEN_WIDTH / 2 + 50, SCREEN_HEIGHT / 2.5 + 140, 20, SPACEINVADERS_FONT, " = 20 Points", sf::Color(255, 255, 255)),
 	t3Text(SCREEN_WIDTH / 2 + 50, SCREEN_HEIGHT / 2.5 + 240, 20, SPACEINVADERS_FONT, " = 10 Points", sf::Color(0, 128, 0)),
 	//Buttons
-	startGameButton(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5, 100, 40, 30, SPACEINVADERS_FONT, "Play", 
+	startGameButton(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5, 100, 40, 30, SPACEINVADERS_FONT, "Play",
 		sf::Color(0, 0, 0), sf::Color(0, 0, 0), sf::Color(0, 0, 0), sf::Color(255, 255, 255), sf::Color(0, 255, 255)),
 	quitGameButton(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 300, 100, 40, 30, SPACEINVADERS_FONT, "Quit",
 		sf::Color(0, 0, 0), sf::Color(0, 0, 0), sf::Color(0, 0, 0), sf::Color(255, 255, 255), sf::Color(0, 255, 255)) {
@@ -44,10 +44,6 @@ MainMenuState::MainMenuState(StateMachine& machine, sf::RenderWindow& window, bo
 	ufo.setScale(1 * 1.5, 1 * 1.5);
 }
 
-MainMenuState::~MainMenuState() {
-
-}
-
 void MainMenuState::updateEvents() {
 	sf::Vector2<int> mousePos = sf::Mouse::getPosition(window);
 
@@ -58,14 +54,14 @@ void MainMenuState::updateEvents() {
 	//Events while loop
 	while (window.pollEvent(sfEvent)) {
 		switch (sfEvent.type) {
-		case sf::Event::Closed:
-			window.close();
-			break;
+			case sf::Event::Closed:
+				window.close();
+				break;
 
-		case sf::Event::MouseButtonPressed:
-			if (quitGameButton.isPressed() == true) { machine.quit(); }
-			if (startGameButton.isPressed() == true) { machine.run(machine.buildState<PlayingState>(machine, window, true)); }
-			break;
+			case sf::Event::MouseButtonPressed:
+				if (quitGameButton.isPressed() == true) { machine.quit(); }
+				if (startGameButton.isPressed() == true) { machine.run(machine.buildState<PlayingState>(machine, window, true)); }
+				break;
 		}
 	}
 }
@@ -81,7 +77,7 @@ void MainMenuState::render() {
 	quitGameButton.renderTo(window);
 	startGameButton.renderTo(window);
 	titleText.renderTo(window);
-	
+
 	ufoText.renderTo(window);
 	t1Text.renderTo(window);
 	t2Text.renderTo(window);

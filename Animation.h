@@ -4,13 +4,15 @@
 #include "SFML/Graphics.hpp"
 
 #include <chrono>
+#include <iostream>
 
 class Animation {
 	public:
 		Animation(sf::Texture* texture, const sf::Vector2<unsigned>& imageCount, float switchTime);
 
-		void update();
+		void updateAnimation(bool manualAnimation, bool isMoving);
 		sf::IntRect uvRect;
+		bool isMoving = false;
 
 	private:
 		const sf::Vector2<unsigned> imageCount;
@@ -22,5 +24,6 @@ class Animation {
 		}
 		const float switchTime;
 };
+
 
 #endif

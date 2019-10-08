@@ -13,6 +13,9 @@ class OStringText {
 		void renderTo(sf::RenderWindow& window);
 
 		void changePosition(float posX, float posY);
+		void changeColor(sf::Color textColor);
+		void changeCharacterSize(unsigned int characterSize);
+		void changeFont(std::string fontFile);
 
 	private:
 		std::ostringstream ssText;
@@ -20,6 +23,8 @@ class OStringText {
 
 		sf::Font textFont;
 		sf::Text text;
+		
 };
+
 
 #endif

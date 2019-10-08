@@ -3,12 +3,12 @@
 
 
 void Game::run() {
-	window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Space Invaders!");
+	window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML Framework!");
 	window.setPosition({ window.getPosition().x, window.getPosition().y - 40 });
 	window.setFramerateLimit(FRAMERATE_LIMIT);
 
 	machine.run(StateMachine::buildState<MainMenuState>(machine, window, true));
-
+	//test
 
 
 	//Main Game Loop
@@ -19,3 +19,4 @@ void Game::run() {
 		machine.render();
 	}
 }
+

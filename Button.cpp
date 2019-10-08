@@ -1,14 +1,15 @@
 #include "Button.h"
 
 
-
-Button::Button(float posX, float posY, float width, float height, unsigned int characterSize, std::string fontFile, std::string text, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor, sf::Color textColor, sf::Color textHoverColor) {
+Button::Button(float posX, float posY, float width, float height, unsigned int characterSize, std::string fontFile, std::string text,
+	sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor, sf::Color textColor, sf::Color textHoverColor) {
+	
 	this->buttonState = BTN_IDLE;
-
+	
 	this->shape.setSize(sf::Vector2<float>(width, height));
 	this->shape.setOrigin(this->shape.getGlobalBounds().width / 2, this->shape.getGlobalBounds().height / 2);
 	this->shape.setPosition(sf::Vector2<float>(posX, posY));
-
+	
 	buttonFont.loadFromFile(fontFile);
 	this->text.setFont(buttonFont);
 	this->text.setCharacterSize(characterSize);
@@ -20,11 +21,11 @@ Button::Button(float posX, float posY, float width, float height, unsigned int c
 	this->idleColor = idleColor;
 	this->hoverColor = hoverColor;
 	this->activeColor = activeColor;
+	this->textColor = textColor;
 	this->textHoverColor = textHoverColor;
 
-	this->textColor = textColor;
-
 	this->shape.setFillColor(this->idleColor);
+	
 }
 
 const bool Button::isPressed() const {
@@ -56,7 +57,7 @@ void Button::update(const sf::Vector2<float> mousePos) {
 
 		case BTN_HOVER:
 			this->shape.setFillColor(this->hoverColor);
-			this->text.setFillColor(this->textHoverColor);
+			this->text.setFillColor(textHoverColor);
 			break;
 
 		case BTN_ACTIVE:
@@ -65,7 +66,6 @@ void Button::update(const sf::Vector2<float> mousePos) {
 
 		default:
 			this->shape.setFillColor(sf::Color::Red);
-			break;
 	}
 }
 
@@ -73,3 +73,4 @@ void Button::renderTo(sf::RenderWindow& window) {
 	window.draw(this->shape);
 	window.draw(this->text);
 }
+

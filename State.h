@@ -2,6 +2,10 @@
 #define STATE_H
 
 #include "SFML/Graphics.hpp"
+#include "SFML/System.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/Network.hpp"
+#include "SFML/Audio.hpp"
 
 #include <memory>
 
@@ -20,8 +24,9 @@ class State {
 		virtual void render() = 0;
 
 		std::unique_ptr<State> nextState();
-
+		
 		bool isReplacing();
+
 
 	protected:
 		StateMachine& machine;

@@ -28,3 +28,18 @@ void OStringText::renderTo(sf::RenderWindow& window) {
 void OStringText::changePosition(float posX, float posY) {
 	this->text.setPosition(posX, posY);
 }
+
+void OStringText::changeColor(sf::Color textColor) {
+	this->text.setFillColor(textColor);
+}
+
+void OStringText::changeCharacterSize(unsigned int characterSize) {
+	this->characterSize = characterSize;
+	this->text.setCharacterSize(this->characterSize);
+}
+
+void OStringText::changeFont(std::string fontFile) {
+	textFont.loadFromFile(fontFile);
+	this->text.setFont(textFont);
+}
+

@@ -5,22 +5,24 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 900
 #define FRAMERATE_LIMIT 120
+#define VERSION_NUMBER 1.3
 
 //Variables
 #define GROUND_HEIGHT 800
+#define SKY_HEIGHT 90
 #define PLAYER_BORDER_SPEED 30
-#define INVADER_ORIGIN 10000
-#define SHIELD_ORIGIN 15000
-#define BULLET_ORIGIN 12345
-#define LOSE_TEXT_ORIGIN 5000
+#define INVADER_ORIGIN 2000
+#define SHIELD_ORIGIN 2500
+#define BULLET_ORIGIN 5000
 
 #define UFO_SPEED 3.0
-#define INVADER_SPEED 2.0
+#define INVADER_SPEED 1.0
 #define HYPER_INVADER_SPEED 10.0
 #define PLAYER_BULLET_SPEED 5.0
 #define INVADER_BULLET_SPEED 2.0
 #define PLAYER_SPEED 1.2
 
+#define INVADER_COUNT 55
 #define SHIELD_PROTECTION 10
 
 //Fonts
@@ -39,8 +41,8 @@
 #define PLAYER_T "res/images/SIPlayer.png"
 
 //Sound Effects - FX
-#define SLOW_BACKGROUND_FX "res/sounds/background/1.wav"
-#define FAST_BACKGROUND_FX "res/sounds/background/0.wav"
+#define SLOW_BACKGROUND_FX "res/sounds/background/0.wav"
+#define FAST_BACKGROUND_FX "res/sounds/background/1.wav"
 #define UFO_FX "res/sounds/FX/4.wav"
 #define INVADER_KILLED_FX "res/sounds/FX/5.wav"
 #define SHOOTING_FX "res/sounds/FX/3.wav"

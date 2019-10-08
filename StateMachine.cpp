@@ -59,3 +59,4 @@ bool StateMachine::running() {
 void StateMachine::quit() {
 	stateRunning = false;
 }
+

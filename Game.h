@@ -17,4 +17,5 @@ class Game {
 		sf::RenderWindow window;
 };
 
+
 #endif

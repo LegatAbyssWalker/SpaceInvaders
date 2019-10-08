@@ -9,6 +9,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "OStringText.h"
+
 class FPSCounter {
 	public:
 		FPSCounter();
@@ -17,10 +19,9 @@ class FPSCounter {
 		void updateCounter();
 
 	private:
-		sf::Font gameFont;
-		sf::Text framerateCounter;
+		OStringText framerateCounter;
 
-		std::ostringstream ssFPS;
+		sf::Font counterFont;
 
 		sf::Clock fpsClock;
 		sf::Time fpsTimer;

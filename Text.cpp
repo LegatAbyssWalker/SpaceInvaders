@@ -20,3 +20,20 @@ void Text::renderTo(sf::RenderWindow& window) {
 void Text::changePosition(float posX, float posY) {
 	this->text.setPosition(posX, posY);
 }
+
+void Text::changeCharacterSize(unsigned int chracterSize) {
+	this->text.setCharacterSize(chracterSize);
+}
+
+void Text::changeFont(std::string fontFile) {
+	textFont.loadFromFile(fontFile);
+	this->text.setFont(textFont);
+}
+
+void Text::changeText(std::string text) {
+	this->text.setString(text);
+}
+
+void Text::changeColor(sf::Color textColor) {
+	this->text.setFillColor(textColor);
+}
