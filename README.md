@@ -18,6 +18,8 @@
 * New animation system! **NOT USED IN THE GAME**
 * Renamed `res/sounds/background/...` background names (switch 0 and 1).
 * `Invader` and `Shield` classes are now **deleted** once collided with!
+* Removed the `ToggleKey` class.
+* Added an `Entity` class to store any entity data.
 
 # Current Ideas
 * None.
