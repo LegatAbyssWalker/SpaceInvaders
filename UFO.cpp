@@ -14,12 +14,12 @@ void UFO::update(size_t timeNumber) {
 	auto elapsed = std::chrono::duration<float>(std::chrono::steady_clock::now() - tp).count();
 
 	//Moves if the duration is larger than the timeNumber;
-	if (elapsed >= 4 && left == true) {
+	if (elapsed >= timeNumber && left == true) {
 		movement.x -= speed;
 		ufoAppear.setSound(UFO_FX, 50, false);
 	}
 
-	else if (elapsed >= 4 && left == false) {
+	else if (elapsed >= timeNumber && left == false) {
 		movement.x += speed;
 		ufoAppear.setSound(UFO_FX, 50, false);
 	}
