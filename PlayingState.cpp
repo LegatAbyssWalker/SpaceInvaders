@@ -8,7 +8,7 @@ class StateMachine;
 
 PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool replace)
 	: State{ machine, window, replace },
-	versionText(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 30, 25, ARIAL_FONT, VERSION_NUMBER, sf::Color(255, 255, 0)),
+	versionText(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 30, 25, ARIAL_FONT, "Version 1.3", sf::Color(255, 255, 0)),
 	scoreText(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0 + 30, 25, SPACEINVADERS_FONT, sf::Color(255, 255, 255)) {
 	
 	//Score and lives information

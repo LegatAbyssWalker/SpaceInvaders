@@ -5,7 +5,6 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 900
 #define FRAMERATE_LIMIT 120
-#define VERSION_NUMBER 1.3
 
 //Variables
 #define GROUND_HEIGHT 800
