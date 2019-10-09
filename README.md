@@ -2,45 +2,39 @@
 * A recreation of _Space Invaders_ in C++/SFML. 
 * Recreated by David A.K.A. LegatAbyssWalker
 
-
 # Dependancies
 * **SFML** Version **2.5.0** or **higher**!
 * **C++17** with a **supporting compiler**!
 
 # Current Version
-* Version 1.2
+* Version 1.3
 
 # New Information on Current Version
-* Used unique pointers for the `Player` and `Invaders` class.
-* `MainMenuState` class objects `Text` and `Buttons` are now no longer pointers but simple objects.
-* Semi-Accurate sprite speeds to the original game.
-* Better buttons style.
-* Exact sounds to the original _Space Invaders_ game.
-* Decreased the invader shooting code in `PlayingState.cpp` to around 10 lines of code using if statements and for loops.
-* UFO's now give random points.
-* Points are kept after winning game, however the points are then removed when you enter the _Main Menu_ or you quit the game.
-* Better invader management using for loops.  
-* Removed the `WinMenuState` and `LoseMenuState`. 
-* Invaders change speed and song when there is now only one invader left on screen.
-* Changed definition names in `MoreInfo.h`. 
-* Changed sound names in the _res/sounds/..._ folder. 
-* **There are now exactly 55 invader**
-  - If you want to include more, just add another for loop if there is a new row
-  - Create new if statement to determine invader type.
-* Overall more organized code. 
+* Finally used an `InvaderManager` class to manage the `Invader` and `InvaderBullet` classes!
+* New collision detection system!
+* UFO no longer is based off of timings but simple logic.
+* Better shield positioning.
+* Used more `std::unique_ptr<...>` for classes.
+* New animation system! **NOT USED IN THE GAME**
+* Renamed `res/sounds/background/...` background names (switch 0 and 1).
+* `Invader` and `Shield` classes are now **deleted** once collided with!
 
 # Current Ideas
 * None.
 
-# Bug Fixes
-* UFO now leaves the screen entirely.
-* Sounds are now only playing whenever needed to.
+# Bugs
+* `PlayerBullet` sometimes goes to the player twice after being 'called' for.
 
 # Credits
 * Kiroma » https://github.com/kiroma
   - Helping me with a lot of the code and teaching me the rights from wrongs.
+* JoaoBapt » https://github.com/JoaoBaptMG
+  - Helping me with the `InvaderManager` class and new collision detection system (also bug fixes).
 
 # Media
-* Youtube Channel                » www.YouTube.com/LegitMegaWalls-52
-* Youtube Video of Creating Game » https://www.youtube.com/watch?v=aUVq3uuxbTM&t=20s
-* Github                         » https://github.com/LegatLastAbyssWalker
+* Youtube Channel                
+  - » www.YouTube.com/LegitMegaWalls-52
+* Youtube Video of Creating **Original** Game (Version 0.1) 
+  - » https://www.youtube.com/watch?v=aUVq3uuxbTM&t=20s
+* Github                         
+  - » https://github.com/LegatLastAbyssWalker
