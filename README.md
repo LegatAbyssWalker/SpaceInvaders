@@ -12,7 +12,8 @@
 # New Information on Current Version
 * Finally used an `InvaderManager` class to manage the `Invader` and `InvaderBullet` classes!
 * New collision detection system!
-* UFO no longer is based off of timings but simple logic.
+* UFO movemnet is no longer based off of timings but simple logic.
+* UFO appearances random timings with the `Random.h` and `chrono` header files!
 * Better shield positioning.
 * Used more `std::unique_ptr<...>` for classes.
 * New animation system! **NOT USED IN THE GAME**
