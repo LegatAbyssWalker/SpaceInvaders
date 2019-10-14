@@ -4,7 +4,7 @@
 #include "State.h"
 #include "Entity.h"
 #include "Random.h"
-#include "PlaySound.h"
+#include "Sound.h"
 
 #include <iostream>
 #include <chrono>
@@ -19,7 +19,7 @@ class UFO : public Entity {
 
 
 	private:
-		PlaySound ufoAppear;
+		Sound ufoAppear;
 		bool left = true;
 		int speed;
 

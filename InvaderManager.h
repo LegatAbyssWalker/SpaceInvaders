@@ -4,7 +4,7 @@
 #include "Invader.h"
 #include "InvaderBullet.h"
 #include "Random.h"
-#include "PlaySound.h"
+#include "Sound.h"
 
 #include "State.h"
 #include "MoreInfo.h"
@@ -16,7 +16,6 @@ class InvaderManager {
 	public:
 		InvaderManager();
 		
-		void getInformation(int enemyKilled);
 		void update();
 		void renderTo(sf::RenderWindow& window);
 
@@ -30,13 +29,13 @@ class InvaderManager {
 
 	private:
 		//Class objects
-		Random<> randomInvader;
-		std::array<PlaySound, 2> sound;
+		std::array<Random<>, 2> random;
+		std::array<Sound, 2> sound;
 		std::array<sf::Texture, 3> invaderTexture;
-		sf::Texture iBulletTexture;
+		std::array<sf::Texture, 2> iBulletTexture;
 
 		std::vector<std::unique_ptr<Invader>> invaderVector;
-		std::unique_ptr<InvaderBullet> iBullet = nullptr;
+		std::vector<std::unique_ptr<InvaderBullet>> iBulletVector;
 		
 		//Variables and Booleans
 		int invaderShooter = 0;

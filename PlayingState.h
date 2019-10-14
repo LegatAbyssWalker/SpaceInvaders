@@ -5,7 +5,7 @@
 #include "Text.h"
 #include "MoreInfo.h"
 #include "Random.h"
-#include "PlaySound.h"
+#include "Sound.h"
 #include "OStringText.h"
 #include "Textbox.h"
 
@@ -43,11 +43,9 @@ class PlayingState : public State {
 		//Booleans and Variables
 		static const int shieldCount = 4;
 		int invaderCount = INVADER_COUNT;
-		int enemyKilled  = 0;
 		int playerLives  = 3;
 		int playerScore  = 0;
 		int ufoTimerSave = 0;
-
 
 		bool playerShooting = false;
 
@@ -60,7 +58,7 @@ class PlayingState : public State {
 		std::vector<std::unique_ptr<Shield>> shieldVector;
 
 		std::array<Random<>, 2> random;
-		std::array<PlaySound, 2> sound;
+		std::array<Sound, 2> sound;
 		InvaderManager invaderManager;
 		FPSCounter fpsCounter;
 		Text versionText;

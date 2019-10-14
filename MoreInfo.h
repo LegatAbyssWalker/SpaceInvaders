@@ -5,6 +5,7 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 900
 #define FRAMERATE_LIMIT 120
+#define VERSION_STATE "Version 1.3"
 
 //Variables
 #define GROUND_HEIGHT 800
@@ -15,7 +16,8 @@
 #define BULLET_ORIGIN 5000
 
 #define UFO_SPEED 3.0
-#define INVADER_SPEED 1.0
+#define SLOW_INVADER_SPEED 0.5
+#define FAST_INVADER_SPEED 2.0
 #define HYPER_INVADER_SPEED 10.0
 #define PLAYER_BULLET_SPEED 5.0
 #define INVADER_BULLET_SPEED 2.0
@@ -23,6 +25,8 @@
 
 #define INVADER_COUNT 55
 #define SHIELD_PROTECTION 10
+
+#define INVADER_CHANGE 20
 
 //Fonts
 #define ARIAL_FONT "res/fonts/arial.ttf"
@@ -33,9 +37,9 @@
 #define INVADER_T1 "res/images/SIInvader1.png" //Crab
 #define INVADER_T2 "res/images/SIInvader2.png" //Octopus
 #define INVADER_T3 "res/images/SIInvader3.png" //Squid
-#define EXPLOSION_T "res/images/SIInvaderExplosion.png"
 #define SHIELD_T "res/images/SIShield.png"
-#define INVADER_BULLET_T "res/images/SIIBullet.png"
+#define INVADER_BULLET_1_T "res/images/SIIBullet1.png" //Swiggle
+#define INVADER_BULLET_2_T "res/images/SIIBullet2.png" //Arrow
 #define PLAYER_BULLET_T "res/images/SIPBullet.png"
 #define PLAYER_T "res/images/SIPlayer.png"
 

@@ -4,7 +4,7 @@
 #include "Entity.h"
 #include "State.h"
 #include "MoreInfo.h"
-#include "PlaySound.h"
+#include "Sound.h"
 
 
 class PlayerBullet : public Entity {
@@ -14,7 +14,7 @@ class PlayerBullet : public Entity {
 		void update(bool isBulletFiring, int bulletSpeed, int playerX, int playerY);
 
 	private:
-		PlaySound shootingFX;
+		Sound shootingFX;
 };
 
 #endif

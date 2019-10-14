@@ -20,15 +20,15 @@ void Invader::move(sf::Vector2<float> distance) {
 	entity.move(sf::Vector2<float>(distance));
 }
 
-void Invader::setType(std::string type) {
+void Invader::setType(Invader::InvaderType type) {
 	this->type = type;
 
 }
 
 int Invader::returnPoints() const {
-	if (type == "crab")    { return crabPoints; }
-	if (type == "octopus") { return octopusPoints; }
-	if (type == "squid")   { return squidPoints; }
+	if (type == Invader::InvaderType::crab)    { return Invader::InvaderType::crab; }
+	if (type == Invader::InvaderType::octopus) { return Invader::InvaderType::octopus; }
+	if (type == Invader::InvaderType::squid)   { return Invader::InvaderType::squid; }
 }
 
 void Invader::setDead() {
