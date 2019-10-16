@@ -25,6 +25,9 @@
 * Invaders now shoot multiple bullet once the amount of invaders are less than 20. 
 * Multiple invader bullets!
 * Changed the `PlaySound` class to a simple `Sound` class.
+* Deleted and replcade unnecessary code.
+* Added collision with `PlayerBullet` to `InvaderBullet`. 
+* Replaced `int` keyword with `size_t`. 
 
 # Warnings
 * I have little-to-none experience in CMake, so unfortuntely my files cannot be in folders. Also, the **CMake.txt** file might not work correctly because, again, I have little-to-none experience in CMake. 
