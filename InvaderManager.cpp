@@ -13,40 +13,40 @@ InvaderManager::InvaderManager() {
 			case 1: iBulletVector.emplace_back(new InvaderBullet(&iBulletTexture[1], sf::Vector2<unsigned>(2, 1), 0.1, 3.0f)); break;
 		}
 	}
-	for (auto& iBullet : iBulletVector) { iBullet->setPosition(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
+	for (auto& iBullet : iBulletVector) { iBullet->setPosition(sf::Vector2<float>(INVADER_BULLET_ORIGIN, INVADER_BULLET_ORIGIN)); }
 
 	invaderTexture[0].loadFromFile(INVADER_T3); //Squid
 	invaderTexture[1].loadFromFile(INVADER_T1); //Crab
 	invaderTexture[2].loadFromFile(INVADER_T2); //Octopus
 
 	//Invader creation
-	for (size_t x = 0; x < invaderCount; x++) {
-		if (x <  (invaderCount / rowCount) * 1)                                      { invaderVector.emplace_back(new Invader(&invaderTexture[0], sf::Vector2<unsigned>(2, 1), invaderSwitchTimer, NULL)); invaderVector[x]->setType(Invader::InvaderType::squid); }
-		if (x >= (invaderCount / rowCount) * 1 && x < (invaderCount / rowCount) * 2) { invaderVector.emplace_back(new Invader(&invaderTexture[1], sf::Vector2<unsigned>(2, 1), invaderSwitchTimer, NULL)); invaderVector[x]->setType(Invader::InvaderType::crab); }
-		if (x >= (invaderCount / rowCount) * 2 && x < (invaderCount / rowCount) * 3) { invaderVector.emplace_back(new Invader(&invaderTexture[1], sf::Vector2<unsigned>(2, 1), invaderSwitchTimer, NULL)); invaderVector[x]->setType(Invader::InvaderType::crab); }
-		if (x >= (invaderCount / rowCount) * 3 && x < (invaderCount / rowCount) * 4) { invaderVector.emplace_back(new Invader(&invaderTexture[2], sf::Vector2<unsigned>(2, 1), invaderSwitchTimer, NULL)); invaderVector[x]->setType(Invader::InvaderType::octopus); }
-		if (x >= (invaderCount / rowCount) * 4 && x < (invaderCount / rowCount) * 5) { invaderVector.emplace_back(new Invader(&invaderTexture[2], sf::Vector2<unsigned>(2, 1), invaderSwitchTimer, NULL)); invaderVector[x]->setType(Invader::InvaderType::octopus); }
+	for (size_t x = 0; x < INVADER_COUNT; x++) {
+		if (x <  (INVADER_COUNT / rowCount) * 1)                                      { invaderVector.emplace_back(new Invader(&invaderTexture[0], sf::Vector2<unsigned>(2, 1), invaderSwitchTimer, NULL)); invaderVector[x]->setType(Invader::InvaderType::squid); }
+		if (x >= (INVADER_COUNT / rowCount) * 1 && x < (INVADER_COUNT / rowCount) * 2) { invaderVector.emplace_back(new Invader(&invaderTexture[1], sf::Vector2<unsigned>(2, 1), invaderSwitchTimer, NULL)); invaderVector[x]->setType(Invader::InvaderType::crab); }
+		if (x >= (INVADER_COUNT / rowCount) * 2 && x < (INVADER_COUNT / rowCount) * 3) { invaderVector.emplace_back(new Invader(&invaderTexture[1], sf::Vector2<unsigned>(2, 1), invaderSwitchTimer, NULL)); invaderVector[x]->setType(Invader::InvaderType::crab); }
+		if (x >= (INVADER_COUNT / rowCount) * 3 && x < (INVADER_COUNT / rowCount) * 4) { invaderVector.emplace_back(new Invader(&invaderTexture[2], sf::Vector2<unsigned>(2, 1), invaderSwitchTimer, NULL)); invaderVector[x]->setType(Invader::InvaderType::octopus); }
+		if (x >= (INVADER_COUNT / rowCount) * 4 && x < (INVADER_COUNT / rowCount) * 5) { invaderVector.emplace_back(new Invader(&invaderTexture[2], sf::Vector2<unsigned>(2, 1), invaderSwitchTimer, NULL)); invaderVector[x]->setType(Invader::InvaderType::octopus); }
 	}
 
 	//Invader positioning 
 	//Row 5
-	for (size_t x = (invaderCount / rowCount) * 0; x < (invaderCount / rowCount) * 1; x++) { invaderVector[x]->setPosition(sf::Vector2<float>(changedInvaderX, 170)); changedInvaderX += 80; }
+	for (size_t x = (INVADER_COUNT / rowCount) * 0; x < (INVADER_COUNT / rowCount) * 1; x++) { invaderVector[x]->setPosition(sf::Vector2<float>(changedInvaderX, 170)); changedInvaderX += 80; }
 	changedInvaderX = initialInvaderX;
 
 	//Row 4
-	for (size_t x = (invaderCount / rowCount) * 1; x < (invaderCount / rowCount) * 2; x++) { invaderVector[x]->setPosition(sf::Vector2<float>(changedInvaderX, 240)); changedInvaderX += 80; }
+	for (size_t x = (INVADER_COUNT / rowCount) * 1; x < (INVADER_COUNT / rowCount) * 2; x++) { invaderVector[x]->setPosition(sf::Vector2<float>(changedInvaderX, 240)); changedInvaderX += 80; }
 	changedInvaderX = initialInvaderX;
 
 	//Row 3
-	for (size_t x = (invaderCount / rowCount) * 2; x < (invaderCount / rowCount) * 3; x++) { invaderVector[x]->setPosition(sf::Vector2<float>(changedInvaderX, 310)); changedInvaderX += 80; }
+	for (size_t x = (INVADER_COUNT / rowCount) * 2; x < (INVADER_COUNT / rowCount) * 3; x++) { invaderVector[x]->setPosition(sf::Vector2<float>(changedInvaderX, 310)); changedInvaderX += 80; }
 	changedInvaderX = initialInvaderX;
 
 	//Row 2
-	for (size_t x = (invaderCount / rowCount) * 3; x < (invaderCount / rowCount) * 4; x++) { invaderVector[x]->setPosition(sf::Vector2<float>(changedInvaderX, 380)); changedInvaderX += 80; }
+	for (size_t x = (INVADER_COUNT / rowCount) * 3; x < (INVADER_COUNT / rowCount) * 4; x++) { invaderVector[x]->setPosition(sf::Vector2<float>(changedInvaderX, 380)); changedInvaderX += 80; }
 	changedInvaderX = initialInvaderX;
 
 	//Row 1
-	for (size_t x = (invaderCount / rowCount) * 4; x < (invaderCount / rowCount) * 5; x++) { invaderVector[x]->setPosition(sf::Vector2<float>(changedInvaderX, 450)); changedInvaderX += 80; }
+	for (size_t x = (INVADER_COUNT / rowCount) * 4; x < (INVADER_COUNT / rowCount) * 5; x++) { invaderVector[x]->setPosition(sf::Vector2<float>(changedInvaderX, 450)); changedInvaderX += 80; }
 	changedInvaderX = initialInvaderX;
 
 
@@ -71,7 +71,7 @@ void InvaderManager::update() {
 		iBullet->move(sf::Vector2<float>(iBulletMovement));
 
 		//Bullet bounds
-		if (iBullet->getY() >= GROUND_HEIGHT + 10) { iBullet->setPosition(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
+		if (iBullet->getY() >= GROUND_HEIGHT + 10) { iBullet->setPosition(sf::Vector2<float>(INVADER_BULLET_ORIGIN, INVADER_BULLET_ORIGIN)); }
 	}
 
 	/*-------------------------------------------------------------------------------------------------------------------*/
@@ -144,20 +144,20 @@ void InvaderManager::update() {
 				//Chooses random bullet type
 				int bulletType = random[1].getInt(0, iBulletVector.size() - 1);
 			
-				if (iBulletVector[bulletType]->getX() == BULLET_ORIGIN) {
+				if (iBulletVector[bulletType]->getX() == INVADER_BULLET_ORIGIN) {
 					iBulletVector[bulletType]->setPosition(sf::Vector2<float>(invaderVector[invaderShooter]->getX(), invaderVector[invaderShooter]->getY()));
 				}
 			}
 
 			else {
-				if (iBulletVector[0]->getX() == BULLET_ORIGIN) {
+				if (iBulletVector[0]->getX() == INVADER_BULLET_ORIGIN) {
 					iBulletVector[0]->setPosition(sf::Vector2<float>(invaderVector[invaderShooter]->getX(), invaderVector[invaderShooter]->getY()));
 				}
 			}
 		}
-		//Else, if the invader shooter is the same as invadercount, then incriment invadershooter by 1 to find new invader. Else, invadershooter = 1;
+		//Else, if the invader shooter is the same as INVADER_COUNT, then incriment invadershooter by 1 to find new invader. Else, invadershooter = 1;
 		else {
-			if (invaderShooter == invaderCount) { invaderShooter++; }
+			if (invaderShooter == INVADER_COUNT) { invaderShooter++; }
 			else { invaderShooter = 1; }
 		}
 
@@ -165,7 +165,7 @@ void InvaderManager::update() {
 	/*-------------------------------------------------------------------------------------------------------------------*/
 	//Removing entities
 	auto invaderEnd = std::remove_if(invaderVector.begin(), invaderVector.end(), [](std::unique_ptr<Invader> & invader) {
-		return !invader->isOnScreen();
+		return invader->isInvaderDead();
 	});
 	invaderVector.erase(invaderEnd, invaderVector.end());
 }

@@ -41,7 +41,6 @@ class InvaderManager {
 		int invaderShooter = 0;
 		int enemyKilled = 0;
 
-		static const int invaderCount = INVADER_COUNT;
 		static const int shieldCount = 4;
 		static const int soundCount = 5;
 		static const int rowCount = 5;

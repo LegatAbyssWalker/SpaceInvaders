@@ -11,14 +11,14 @@ PlayerBullet::PlayerBullet(sf::Texture& texture)
 
 void PlayerBullet::update(bool isBulletFiring, int bulletSpeed, int playerX, int playerY) {
 	//Border bounds
-	if (getY() <= SKY_HEIGHT) { setPosition(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); entity.move(sf::Vector2<float>(0, 0)); }
+	if (getY() <= SKY_HEIGHT) { setPosition(sf::Vector2<float>(PLAYER_BULLET_ORIGIN, PLAYER_BULLET_ORIGIN)); entity.move(sf::Vector2<float>(0, 0)); }
 
 	//Update shooting
 	sf::Vector2<float> movement(0.f, 0.f);
 	movement.y -= bulletSpeed;
 
 	if (isBulletFiring) {
-		if (getX() == BULLET_ORIGIN) {
+		if (getX() == PLAYER_BULLET_ORIGIN) {
 			setPosition(sf::Vector2<float>(playerX, playerY));
 			shootingFX.setSound(SHOOTING_FX, 20, false);
 		}

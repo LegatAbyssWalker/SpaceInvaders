@@ -35,14 +35,13 @@ class PlayingState : public State {
 		void render();
 
 		//Variables Functions
-		void resetPBulletPosition() { pBullet->setPosition(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN)); }
+		void resetPBulletPosition() { pBullet->setPosition(sf::Vector2<float>(PLAYER_BULLET_ORIGIN, PLAYER_BULLET_ORIGIN)); }
 		void resetUFOPosition() { ufo->setPosition(sf::Vector2<float>(SCREEN_WIDTH + 50, SKY_HEIGHT)); }
 
 
 	private:
 		//Booleans and Variables
-		static const int shieldCount = 4;
-		int invaderCount = INVADER_COUNT;
+		const int shieldCount = 4;
 		int playerLives  = 3;
 		int playerScore  = 0;
 		int ufoTimerSave = 0;

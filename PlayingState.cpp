@@ -26,7 +26,7 @@ PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool
 	player->setPosition(sf::Vector2<float>(SCREEN_WIDTH / 10, GROUND_HEIGHT));
 	
 	pBullet = std::make_unique<PlayerBullet>(pBulletTexture);
-	pBullet->setPosition(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN));
+	pBullet->setPosition(sf::Vector2<float>(PLAYER_BULLET_ORIGIN, PLAYER_BULLET_ORIGIN));
 
 	
 	//Shield information
@@ -96,24 +96,31 @@ void PlayingState::update() {
 
 	//Collision detection
 	//Player with invader
-	auto playerCollision = invaderManager.invaderCollision(player->getGlobalBounds());
-	if (playerCollision) {
+	auto PLAYER_TO_INVADER = invaderManager.invaderCollision(player->getGlobalBounds());
+	if (PLAYER_TO_INVADER) {
 		playerLives = 0;
 	}
 
 	//Player bullet with invader
-	auto invaderCollision = invaderManager.invaderCollision(pBullet->getGlobalBounds());
-	if (invaderCollision) {
-		playerScore += invaderCollision->returnPoints();
-		invaderCollision->setPosition(sf::Vector2<float>(INVADER_ORIGIN, INVADER_ORIGIN));
+	auto INVADER_TO_PBULLET = invaderManager.invaderCollision(pBullet->getGlobalBounds());
+	if (INVADER_TO_PBULLET) {
+		playerScore += INVADER_TO_PBULLET->returnPoints();
+		INVADER_TO_PBULLET->setPosition(sf::Vector2<float>(INVADER_ORIGIN, INVADER_ORIGIN));
 		resetPBulletPosition();
 		sound[0].setSound(INVADER_KILLED_FX, 20, false);
 	}
+	
+	//Player bullet with invader bullet
+	auto IBULLET_TO_PBULLET = invaderManager.iBulletCollision(pBullet->getGlobalBounds());
+	if (IBULLET_TO_PBULLET) {
+		resetPBulletPosition();
+		IBULLET_TO_PBULLET->setPosition(sf::Vector2<float>(INVADER_BULLET_ORIGIN, INVADER_BULLET_ORIGIN));
+	}
 
 	//Invader bullet collides with player
-	auto iBulletCollision = invaderManager.iBulletCollision(player->getGlobalBounds());
-	if (iBulletCollision) {
-		iBulletCollision->setPosition(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN));
+	auto IBULLET_TO_PLAYER = invaderManager.iBulletCollision(player->getGlobalBounds());
+	if (IBULLET_TO_PLAYER) {
+		IBULLET_TO_PLAYER->setPosition(sf::Vector2<float>(INVADER_BULLET_ORIGIN, INVADER_BULLET_ORIGIN));
 		player->setPosition(sf::Vector2<float>(SCREEN_WIDTH / 10, GROUND_HEIGHT));
 		playerLives--;
 		sound[1].setSound(EXPLOSION_FX, 50, false);
@@ -124,15 +131,18 @@ void PlayingState::update() {
 	//Shield information
 	for (auto& shield : shieldVector) {
 		//Collision
-		auto iBulletCollision = invaderManager.iBulletCollision(shield->getGlobalBounds());
+		auto IBULLET_TO_SHIELD = invaderManager.iBulletCollision(shield->getGlobalBounds());
+		auto PBULLET_TO_SHIELD = shield->getGlobalBounds().intersects(pBullet->getGlobalBounds());
 
-		if (shield->getGlobalBounds().intersects(pBullet->getGlobalBounds()) || iBulletCollision) {
-			resetPBulletPosition();
-			shield->shieldProtection();
+		if (PBULLET_TO_SHIELD || IBULLET_TO_SHIELD) {
+			if (PBULLET_TO_SHIELD) {
+				resetPBulletPosition();
+				shield->shieldProtection();
+			}
 
 			//Collision with invader bullets
-			if (iBulletCollision) {
-				iBulletCollision->setPosition(sf::Vector2<float>(BULLET_ORIGIN, BULLET_ORIGIN));
+			if (IBULLET_TO_SHIELD) {
+				IBULLET_TO_SHIELD->setPosition(sf::Vector2<float>(INVADER_BULLET_ORIGIN, INVADER_BULLET_ORIGIN));
 				shield->shieldProtection();
 			}
 
@@ -145,8 +155,9 @@ void PlayingState::update() {
 	/*-------------------------------------------------------------------------------------------------------------------*/
 	//UFO Information
 	ufo->update(ufoTimerSave);
+	auto PBULLET_TO_UFO = pBullet->getGlobalBounds().intersects(ufo->getGlobalBounds());
 
-	if (pBullet->getGlobalBounds().intersects(ufo->getGlobalBounds())) {
+	if (PBULLET_TO_UFO) {
 		resetPBulletPosition();
 		resetUFOPosition();
 		ufo->ufoCollisionSound();
@@ -161,7 +172,6 @@ void PlayingState::update() {
 		}
 		playerScore += ufoPoints;
 	}
-
 
 
 	/*-------------------------------------------------------------------------------------------------------------------*/
