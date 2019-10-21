@@ -25,7 +25,7 @@
 * Invaders now shoot multiple bullet once the amount of invaders are less than 20. 
 * Multiple invader bullets!
 * Changed the `PlaySound` class to a simple `Sound` class.
-* Deleted and replcade unnecessary code.
+* Deleted and replicated unnecessary code.
 * Added collision with `PlayerBullet` to `InvaderBullet`. 
 * Replaced `int` keyword with `size_t`. 
 
