@@ -7,7 +7,7 @@
 * **C++17** with a **supporting compiler**!
 
 # Current Version
-* Version 1.3
+* Version **1.3**
 
 # New Information on Current Version
 * Finally uses an `InvaderManager` class to manage the `Invader` and `InvaderBullet` classes!
