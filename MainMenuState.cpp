@@ -19,6 +19,7 @@ MainMenuState::MainMenuState(StateMachine& machine, sf::RenderWindow& window, bo
 	t1Text(SCREEN_WIDTH / 2 + 50, SCREEN_HEIGHT / 2.5 + 040, 20, SPACEINVADERS_FONT, " = 30 Points", sf::Color(255, 255, 255)),
 	t2Text(SCREEN_WIDTH / 2 + 50, SCREEN_HEIGHT / 2.5 + 140, 20, SPACEINVADERS_FONT, " = 20 Points", sf::Color(255, 255, 255)),
 	t3Text(SCREEN_WIDTH / 2 + 50, SCREEN_HEIGHT / 2.5 + 240, 20, SPACEINVADERS_FONT, " = 10 Points", sf::Color(0, 128, 0)),
+	ccText(SCREEN_WIDTH - 200, 10, 15, ARIAL_FONT, "Created By LegatAbyssWalker - David Ayrton Dominguez", sf::Color(128, 128, 128)),
 	//Buttons
 	startGameButton(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5, 100, 40, 30, SPACEINVADERS_FONT, "Play",
 		sf::Color(0, 0, 0), sf::Color(0, 0, 0), sf::Color(0, 0, 0), sf::Color(255, 255, 255), sf::Color(0, 255, 255)),
@@ -82,6 +83,7 @@ void MainMenuState::render() {
 	t1Text.renderTo(window);
 	t2Text.renderTo(window);
 	t3Text.renderTo(window);
+	ccText.renderTo(window);
 
 	fpsCounter.renderTo(window);
 

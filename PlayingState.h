@@ -60,7 +60,7 @@ class PlayingState : public State {
 		std::array<Sound, 2> sound;
 		InvaderManager invaderManager;
 		FPSCounter fpsCounter;
-		Text versionText;
+		Text versionText, ccText;
 		OStringText scoreText;
 
 

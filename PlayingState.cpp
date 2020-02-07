@@ -9,7 +9,8 @@ class StateMachine;
 PlayingState::PlayingState(StateMachine& machine, sf::RenderWindow& window, bool replace)
 	: State{ machine, window, replace },
 	versionText(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 30, 25, ARIAL_FONT, VERSION_STATE, sf::Color(255, 255, 0)),
-	scoreText(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0 + 30, 25, SPACEINVADERS_FONT, sf::Color(255, 255, 255)) {
+	scoreText(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0 + 30, 25, SPACEINVADERS_FONT, sf::Color(255, 255, 255)),
+	ccText(SCREEN_WIDTH - 200, 10, 15, ARIAL_FONT, "Created By LegatAbyssWalker - David Ayrton Dominguez", sf::Color(128, 128, 128)) {
 	
 	//Score and lives information
 	std::ifstream ifs("Information/SpaceInvaders.txt");
@@ -210,6 +211,7 @@ void PlayingState::render() {
 	//Render items
 	fpsCounter.renderTo(window);
 	versionText.renderTo(window);
+	ccText.renderTo(window);
 
 	player->extraRenderTo(window);
 	pBullet->renderTo(window);

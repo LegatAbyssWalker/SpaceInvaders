@@ -27,7 +27,7 @@ class MainMenuState : public State {
 		//Class objects
 		FPSCounter fpsCounter;
 		Button startGameButton, quitGameButton;
-		Text titleText, ufoText, t1Text, t2Text, t3Text;
+		Text titleText, ufoText, t1Text, t2Text, t3Text, ccText;
 
 		//SFML
 		sf::Event sfEvent;
